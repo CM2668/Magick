@@ -13,21 +13,24 @@ public class SpellDisplay : MonoBehaviour
 	public GameObject spellGuide;
 
 	Transform unchild;
-	Text text;
-    string activeSpell = null; //determines if there is a spell effect currently active
-    string input = "";
-    string displayText = "";
-    double timer;
-	public float ForceMod = 1000f;
-    public float spellLongevity = 5f; //length of spell effects
-    float targetDistance; //distance between target and object (Telekinesis)
-    bool playerTouching; //determines if player is touching object that is being targeted
-    Vector3 move;
-    double spellEffectsTimer = 0;
-    GameObject newRune1 = null;
-    GameObject newRune2 = null;
-    GameObject newRune3 = null;
-    char[,] symbols = new char[3,4] {{'\u16B2', '\u16B7', '\u16D2', '\u16C7' }, {'\u16D7', '\u16C1', '\u0000', '\u16C3' }, {'\u16D6', /*'\u16BB'*/'ᚻ', '\u16AB', '\u16C8' }};
+	Text text; //The text object used to display spells on screen
+    string activeSpell = null; //Determines if there is a spell effect currently active
+    string input = ""; //Current spell input
+    string displayText = ""; //Used in conjunction with Text text
+	public float ForceMod = 1000f; //Used to move objects in telekinesis
+    public float spellLongevity = 5f; //Length of spell effects
+    float targetDistance; //Distance between target and object (Telekinesis)
+    bool playerTouching; //Determines if player is touching object that is being targeted
+    Vector3 move; //Used to move objects in telekinesis
+    double spellEffectsTimer = 0; //Used to countdown how long a spell lasts
+    GameObject newRune1 = null; //Used to display runes on screen
+    GameObject newRune2 = null;//Used to display runes on screen
+    GameObject newRune3 = null;//Used to display runes on screen
+    Material mat = null;//Used for telekinesis to get material of spellTarget;
+
+
+
+    //char[,] symbols = new char[3,4] {{'\u16B2', '\u16B7', '\u16D2', '\u16C7' }, {'\u16D7', '\u16C1', '\u0000', '\u16C3' }, {'\u16D6', /*'\u16BB'*/'ᚻ', '\u16AB', '\u16C8' }};
 
 
     void Start()
@@ -38,9 +41,8 @@ public class SpellDisplay : MonoBehaviour
     void Update()
     {
         //Detects spell inputs
-        if (Input.anyKeyDown && timer <= 0 && !string.IsNullOrEmpty(Input.inputString) && activeSpell == null)
+        if (!string.IsNullOrEmpty(Input.inputString) && activeSpell == null)
         {
-            //timer = .5;
             input = Input.inputString.ToLower();
             if (input == "q" || input == "e" || input == "r" || input == "f")
             {
@@ -146,7 +148,7 @@ public class SpellDisplay : MonoBehaviour
 			
         }
 
-        //Detects if spell timer is up or user is ending spell
+        //Detects if spell timer is up or the user is ending a spel
         if ((spellEffectsTimer <= 0 || Input.GetMouseButtonDown(1)) && activeSpell != null)
         {
             switch (activeSpell)
@@ -160,6 +162,8 @@ public class SpellDisplay : MonoBehaviour
                     text.text = "";
                     break;
                 case "TELEKINESIS":
+                    mat.SetColor("_EmissiveColor", new Color(0,0,0,0));
+                    mat.DisableKeyword("_UseEmissiveIntensity");
                     spellTarget.GetComponent<Rigidbody>().useGravity = true;
                     //spellTarget.transform.parent = unchild;
                     text.text = "";
@@ -194,6 +198,7 @@ public class SpellDisplay : MonoBehaviour
             spellEffectsTimer = 0;
         }
 
+        //Detects if user is clearing their spell
         else if (Input.GetMouseButtonDown(1))
         {
             displayText = "";
@@ -216,10 +221,13 @@ public class SpellDisplay : MonoBehaviour
             }
         }
 
+        //Counts down spell timer
         else if (spellEffectsTimer > 0)
         {
             spellEffectsTimer -= Time.deltaTime;
         }
+
+        //Activates spell effects
         if (spellEffectsTimer > 0 && activeSpell != null)
 		{
 			switch (activeSpell)
@@ -246,17 +254,20 @@ public class SpellDisplay : MonoBehaviour
 					break;
 			}
 		}
-
-		timer -= Time.deltaTime;
     }
 
 	void FixedUpdate()
 	{
+
+        //Probably move this to when the spell activates, then deactivate it when a spell ends
+        //Otherwise have it under where spell effects take place
+        //Detects if haste is active and then modifies FOV
 		if(player.GetComponent<FirstPersonAIO>().sprintSpeed != 7)
 		{
 			//edit the FOV here... somehow
 		}
 
+        //Detects mouse wheel scroll, and then applies it to a spell if possible
         if (Input.mouseScrollDelta != new Vector2(0, 0))
         {
             switch (activeSpell)
@@ -289,7 +300,8 @@ public class SpellDisplay : MonoBehaviour
             }
         }
 
-		if(Input.GetMouseButtonDown(0) && displayText.Length == 3 && timer <= 0 && activeSpell == null)
+        //Activates spells
+		if(Input.GetMouseButtonDown(0) && displayText.Length == 3 && activeSpell == null)
 		{
             switch (displayText)
             {
@@ -522,14 +534,30 @@ public class SpellDisplay : MonoBehaviour
 					if (activeSpell == null)
 					{
 						displayText = "";
-						text.text = "TELEKINESIS";
+                        text.text = "TELEKINESIS";
 						getTarget();
+                        //Determines if object is allowed to be targeted
                         if (spellTarget.GetComponent<Rigidbody>() != null && spellTarget != player)
 						{
-							spellTarget.GetComponent<Rigidbody>().useGravity = false;
-							spellEffectsTimer = spellLongevity * 10;
-							activeSpell = "TELEKINESIS";
-						}
+                            //Determines if object has the renderer or if its children do, then lights the renderer up
+                            if (spellTarget.GetComponent<Renderer>() != null)
+                            {
+                                mat = spellTarget.GetComponent<Renderer>().material;
+
+                                mat.EnableKeyword("_UseEmissiveIntensity");
+                                mat.SetColor("_EmissiveColor", new Color(1, 1, 1, 1) * .2f);
+                            }
+                            else if(spellTarget.GetComponentsInChildren<Renderer>() != null)
+                            {
+                                mat = spellTarget.GetComponentInChildren<Renderer>().material;
+                                mat.EnableKeyword("_UseEmissiveIntensity");
+                                mat.SetColor("_EmissiveColor", new Color(1, 1, 1, 1) * .2f);
+                            }
+                            //activates effects of telekinesis
+                            spellTarget.GetComponent<Rigidbody>().useGravity = false;
+                            spellEffectsTimer = spellLongevity * 10;
+                            activeSpell = "TELEKINESIS";
+                        }
 					}
 					else
 					{
@@ -697,6 +725,8 @@ public class SpellDisplay : MonoBehaviour
         }
 	}
 
+
+    //Uses raycasts to find what a spell is targeting
 	void getTarget()
 	{
 		RaycastHit hit;
@@ -725,7 +755,7 @@ public class SpellDisplay : MonoBehaviour
 			Debug.Log("No Target | " + ray.GetPoint(10f) + " | " + playerCamera.transform.position);
 	}
 
-
+    //Determines if spellTarget of telekinesis would hit the player (Uses collision events from the playerobject)
     public void telekinesisCollide(Collider other, bool touch)
     {
         Debug.Log(other);
