@@ -14,12 +14,15 @@ public class MainMenuController : MonoBehaviour
 
     public Button startButton;
     public Button optionsButton;
-
+    public Button quitButton;
+    public Button backButton;
 
     void Start()
     {
         startButton.onClick.AddListener(gameStart);
         optionsButton.onClick.AddListener(optionMenu);
+        quitButton.onClick.AddListener(closeGame);
+        backButton.onClick.AddListener(backtoMain);
     }
 
     void gameStart()
@@ -32,7 +35,17 @@ public class MainMenuController : MonoBehaviour
     {
         MainMenuScreen.SetActive(false);
         MainMenuOptions.SetActive(true);
+    }
 
+    void backtoMain()
+    {
+        MainMenuOptions.SetActive(false);
+        MainMenuScreen.SetActive(true);
+    }
+
+    void closeGame()
+    {
+        Application.Quit();
     }
 
 }
