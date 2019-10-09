@@ -22,6 +22,7 @@ public class CharacterController : MonoBehaviour {
 			sprintMod = 10.0f;
 		else
 			sprintMod = 5.0f;
+
 	}
 	
 	void FixedUpdate () {

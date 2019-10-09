@@ -11,11 +11,14 @@ public class MainMenuController : MonoBehaviour
     public GameObject MainMenuGroup;
     public GameObject MainMenuScreen;
     public GameObject MainMenuOptions;
+    public GameObject OptionsMenu;
 
     public Button startButton;
     public Button optionsButton;
     public Button quitButton;
     public Button backButton;
+
+    bool InOptionsMenu = false;
 
     void Start()
     {
@@ -23,6 +26,26 @@ public class MainMenuController : MonoBehaviour
         optionsButton.onClick.AddListener(optionMenu);
         quitButton.onClick.AddListener(closeGame);
         backButton.onClick.AddListener(backtoMain);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) && InOptionsMenu == false)
+        {
+            InOptionsMenu = true;
+            firstPersonGroup.GetComponent<FirstPersonAIO>().playerCanMove = false;
+            firstPersonGroup.GetComponent<FirstPersonAIO>().enableCameraMovement = false;
+            firstPersonGroup.GetComponent<FirstPersonAIO>().lockAndHideCursor = false;
+            OptionsMenu.SetActive(true);
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape) && InOptionsMenu == true)
+        {
+            InOptionsMenu = false;
+            firstPersonGroup.GetComponent<FirstPersonAIO>().playerCanMove = true;
+            firstPersonGroup.GetComponent<FirstPersonAIO>().enableCameraMovement = true;
+            firstPersonGroup.GetComponent<FirstPersonAIO>().lockAndHideCursor=true;
+            OptionsMenu.SetActive(false);
+        }
     }
 
     void gameStart()
