@@ -293,7 +293,6 @@ public class BETA_SETTINGS{
             quic.transform.position = Vector3.zero;
         }
         cameraStartingPosition = playerCamera.localPosition;
-        if(lockAndHideCursor) { Cursor.lockState = CursorLockMode.Locked; Cursor.visible = false; }
         baseCamFOV = playerCamera.GetComponent<Camera>().fieldOfView;
         #endregion
 

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,7 +13,18 @@ public class SpellDisplay : MonoBehaviour
 	public GameObject spellTarget;
 	public GameObject spellGuide;
 
-	Transform unchild;
+    #region UISpellGameobjects
+
+    public GameObject fireballUI;
+    public GameObject greaseUI;
+    public GameObject jumpUI;
+    public GameObject levitationUI;
+    public GameObject hasteUI;
+    public GameObject telekinesisUI;
+
+    #endregion
+
+    Transform unchild;
 	Text text; //The text object used to display spells on screen
     string activeSpell = null; //Determines if there is a spell effect currently active
     string input = ""; //Current spell input
@@ -142,7 +154,7 @@ public class SpellDisplay : MonoBehaviour
 
                     displayText += input;
                 }
-                text.text = displayText;
+                
 				
 			}
 			
@@ -154,28 +166,32 @@ public class SpellDisplay : MonoBehaviour
             switch (activeSpell)
             {
                 case "JUMP":
+                    
                     player.GetComponent<FirstPersonAIO>().jumpPower = 5;    // HEY LOOKIE HERE: This should probably be changed to be a variable in some way
-                    text.text = "";
+                    
                     break;
                 case "HASTE":
+                    
                     player.GetComponent<FirstPersonAIO>().sprintSpeed = 7;
-                    text.text = "";
+                    
                     break;
                 case "TELEKINESIS":
+                    
                     mat.SetColor("_EmissiveColor", new Color(0,0,0,0));
                     mat.DisableKeyword("_UseEmissiveIntensity");
                     spellTarget.GetComponent<Rigidbody>().useGravity = true;
                     //spellTarget.transform.parent = unchild;
-                    text.text = "";
+                    
                     break;
                 case "LEVITATION":
+                    
                     Destroy(spellTarget.GetComponent<Levitate>());
                     spellTarget.GetComponent<Rigidbody>().useGravity = true;
                     spellTarget.GetComponent<Rigidbody>().freezeRotation = false;
                     break;
                 default:
                     displayText = "";
-                    text.text = "";
+                   
                     break;
             }
             //clear runes
@@ -202,7 +218,7 @@ public class SpellDisplay : MonoBehaviour
         else if (Input.GetMouseButtonDown(1))
         {
             displayText = "";
-            text.text = "";
+            
             //clear runes
             if (newRune1 != null)
             {
@@ -300,242 +316,146 @@ public class SpellDisplay : MonoBehaviour
             }
         }
 
-        //Activates spells
-		if(Input.GetMouseButtonDown(0) && displayText.Length == 3 && activeSpell == null)
-		{
+        //Displays spells
+
+        if (displayText.Length == 3 && activeSpell == null)
+        {
             switch (displayText)
             {
-                //
-                case "qqq":
-                    displayText = "";
-                    text.text = "";
-                    break;
-                //
-                case "qqe":
-                    displayText = "";
-                    text.text = "";
-                    break;
-                //
-                case "qqr":
-                    displayText = "";
-                    text.text = "";
-                    break;
-                //
-                case "qqf":
-                    displayText = "";
-                    text.text = "";
-                    break;
-                //
-                case "qeq":
-                    displayText = "";
-                    text.text = "";
-                    break;
 
-                //Fireball
+                #region Fireball
                 case "qee":
-                    displayText = "";
-                    text.text = "Fireball";
-                    Instantiate(fireball, new Vector3(playerCamera.transform.position.x, playerCamera.transform.position.y + .1f, playerCamera.transform.position.z), playerCamera.transform.rotation);
+                    fireballUI.SetActive(true);
                     break;
-                //
-                case "qer":
-                    displayText = "";
-                    text.text = "";
-                    break;
-                //
-                case "qef":
-                    displayText = "";
-                    text.text = "";
-                    break;
-                //
-                case "qrq":
-                    displayText = "";
-                    text.text = "";
-                    break;
-                //Grease Pool
+                #endregion
+                #region Grease Pool
                 case "qre":
-                    displayText = "";
-                    text.text = "Grease Pool";
-                    Instantiate(grease, new Vector3(playerCamera.transform.position.x, playerCamera.transform.position.y + .1f, playerCamera.transform.position.z), playerCamera.transform.rotation);
+                    greaseUI.SetActive(true);
                     break;
-                //
-                case "qrr":
-                    displayText = "";
-                    text.text = "";
-                    break;
-                //
-                case "qrf":
-                    displayText = "";
-                    text.text = "";
-                    break;
-                //
-                case "qfq":
-                    displayText = "";
-                    text.text = "";
-                    break;
-                //
-                case "qfe":
-                    displayText = "";
-                    text.text = "";
-                    break;
-                //
-                case "qfr":
-                    displayText = "";
-                    text.text = "";
-                    break;
-                //
-                case "qff":
-                    displayText = "";
-                    text.text = "";
-                    break;
-
-                //Jump
+                #endregion
+                #region Jump
                 case "eqq":
                     if (activeSpell == null)
                     {
-                        displayText = "";
-                        text.text = "JUMP";
+                        jumpUI.SetActive(true);
+                    }
+                    break;
+                #endregion
+                #region Haste
+                case "eqf":
+                    if (activeSpell == null)
+                    {
+                        hasteUI.SetActive(true);
+                    }
+                    break;
+                #endregion
+                #region Levitation
+                case "eeq":
+                    if (activeSpell == null)
+                    {
+                        levitationUI.SetActive(true);
+                        
+                    }
+                   
+                    break;
+                #endregion
+                #region Telekinesis
+                case "req":
+                    if (activeSpell == null)
+                    {
+                        telekinesisUI.SetActive(true);
+                        
+                    }
+
+                    break;
+                #endregion
+
+                default:
+                    displayText = "";
+                    
+                    break;
+            }
+        }
+
+        //Activates Spells
+        if (Input.GetMouseButtonDown(0) && displayText.Length == 3 && activeSpell == null) 
+
+        {
+            switch (displayText)
+            {
+
+                #region Fireball
+                case "qee":
+                    Instantiate(fireball, new Vector3(playerCamera.transform.position.x, playerCamera.transform.position.y + .1f, playerCamera.transform.position.z), playerCamera.transform.rotation);
+                    fireballUI.SetActive(false);
+                    displayText = "";
+                    break;
+                #endregion
+                #region Grease Pool
+                case "qre":
+                    Instantiate(grease, new Vector3(playerCamera.transform.position.x, playerCamera.transform.position.y + .1f, playerCamera.transform.position.z), playerCamera.transform.rotation);
+                    greaseUI.SetActive(false);
+                    displayText = "";
+                    break;
+                #endregion
+                #region Jump
+                case "eqq":
+                    if (activeSpell == null)
+                    {
                         player.GetComponent<FirstPersonAIO>().jumpPower = 10;
                         spellEffectsTimer = spellLongevity;
-                        activeSpell = "JUMP";
+                        displayText = "";
+                        jumpUI.SetActive(false);
                     }
                     else
                     {
                         displayText = "";
-                        text.text = activeSpell + " IN USE";
                     }
                     break;
-                //
-                case "eqe":
-                    displayText = "";
-                    text.text = "";
-                    break;
-                //
-                case "eqr":
-                    displayText = "";
-                    text.text = "";
-                    break;
-                //Haste
+                #endregion
+                #region Haste
                 case "eqf":
                     if (activeSpell == null)
                     {
                         displayText = "";
-                        text.text = "HASTE";
                         player.GetComponent<FirstPersonAIO>().sprintSpeed = 10;
                         spellEffectsTimer = spellLongevity;
-                        activeSpell = "HASTE";
+                        hasteUI.SetActive(false);
                     }
                     else
                     {
                         displayText = "";
-                        text.text = activeSpell + "IN USE";
                     }
                     break;
-
-				//Levitation
-				case "eeq":
+                #endregion
+                #region Levitation
+                case "eeq":
 					if (activeSpell == null)
 					{
-						displayText = "";
-						text.text = "LEVITATION";
-						getTarget();
+                         
+                        getTarget();
 						if (spellTarget.GetComponent<Rigidbody>() != null && spellTarget != player)
 						{
+                            Debug.Log(spellTarget);
                             spellTarget.GetComponent<Rigidbody>().useGravity = false;
 							spellTarget.GetComponent<Rigidbody>().freezeRotation = true;
 							spellTarget.AddComponent<Levitate>();
 							spellEffectsTimer = spellLongevity * 6;
-							activeSpell = "LEVITATION";
-						}
+                            displayText = "";
+                            levitationUI.SetActive(false);
+                        }
 					}
-					else
-					{
-						displayText = "";
-						text.text = activeSpell + "IN USE";
-					}
-					break;
-				//
-				case "eee":
-					displayText = "";
-                    text.text = "";
+
+
                     break;
-				//
-				case "eer":
-					displayText = "";
-                    text.text = "";
-                    break;
-				//
-				case "eef":
-					displayText = ""; 
-                    text.text = "";
-                    break;
-				//
-				case "erq":
-					displayText = "";
-                    text.text = "";
-                    break;
-				//
-				case "ere":
-					displayText = "";
-                    text.text = "";
-                    break;
-				//
-				case "err":
-					displayText = "";
-                    text.text = "";
-                    break;
-				//
-				case "erf":
-					displayText = "";
-                    text.text = "";
-                    break;
-				//
-				case "efq":
-					displayText = "";
-                    text.text = "";
-                    break;
-				//
-				case "efe":
-					displayText = "";
-                    text.text = "";
-                    break;
-				//
-				case "efr":
-					displayText = "";
-                    text.text = "";
-                    break;
-				//
-				case "eff":
-					displayText = "";
-                    text.text = "";
-                    break;
-				//
-				case "rqq":
-					displayText = "";
-                    text.text = "";
-                    break;
-				//
-				case "rqe":
-					displayText = "";
-                    text.text = "";
-                    break;
-				//
-				case "rqr":
-					displayText = "";
-                    text.text = "";
-                    break;
-				//
-				case "rqf":
-					displayText = "";
-                    text.text = "";
-                    break;
-				//Telekinesis
-				case "req":
+                #endregion
+                #region Telekinesis
+                case "req":
 					if (activeSpell == null)
 					{
-						displayText = "";
-                        text.text = "TELEKINESIS";
-						getTarget();
+                        displayText = "";
+                        telekinesisUI.SetActive(false);
+                        getTarget();
                         //Determines if object is allowed to be targeted
                         if (spellTarget.GetComponent<Rigidbody>() != null && spellTarget != player)
 						{
@@ -553,156 +473,22 @@ public class SpellDisplay : MonoBehaviour
                                 mat.EnableKeyword("_UseEmissiveIntensity");
                                 mat.SetColor("_EmissiveColor", new Color(1, 1, 1, 1) * .2f);
                             }
+                            else
+                            {
+                                displayText = "";
+                            }
                             //activates effects of telekinesis
                             spellTarget.GetComponent<Rigidbody>().useGravity = false;
                             spellEffectsTimer = spellLongevity * 10;
-                            activeSpell = "TELEKINESIS";
+
                         }
 					}
-					else
-					{
-						displayText = "";
-						text.text = activeSpell + "IN USE";
-					}
-					break;
-				//
-				case "ree":
-					displayText = "";
-                    text.text = "";
-                    break;
-				//
-				case "rer":
-					displayText = "";
-                    text.text = "";
-                    break;
-				//Polymorph Larger
-				case "ref":
-					displayText = "";
-                    text.text = "";
-                    break;
-				//
-				case "rrq":
-					displayText = "";
-                    text.text = "";
-                    break;
-				//
-				case "rre":
-					displayText = "";
-                    text.text = "";
-                    break;
-				//
-				case "rrr":
-					displayText = ""; 
-                    text.text = "";
-                    break;
-				//
-				case "rrf":
-					displayText = "";
-                    text.text = "";
-                    break;
-				//
-				case "rfq":
-					displayText = "";
-                    text.text = "";
-                    break;
-				//
-				case "rfe":
-					displayText = "";
-                    text.text = "";
-                    break;
-				//
-				case "rfr":
-					displayText = "";
-                    text.text = "";
-                    break;
-				//
-				case "rff":
-					displayText = "";
-                    text.text = "";
-                    break;
-				//
-				case "fqq":
-					displayText = "";
-                    text.text = "";
-                    break;
-				//
-				case "fqe":
-					displayText = "";
-                    text.text = "";
-                    break;
-				//
-				case "fqr":
-					displayText = "";
-                    text.text = "";
-                    break;
-				//
-				case "fqf":
-					displayText = "";
-                    text.text = "";
-                    break;
-				//
-				case "feq":
-					displayText = "";
-                    text.text = "";
-                    break;
-				//
-				case "fee":
-					displayText = "";
-                    text.text = "";
-                    break;
-				//
-				case "fer":
-					displayText = "";
-                    text.text = "";
-                    break;
-				//
-				case "fef":
-					displayText = "";
-                    text.text = "";
-                    break;
-				//
-				case "frq":
-					displayText = "";
-                    text.text = "";
-                    break;
-				//
-				case "fre":
-					displayText = "";
-                    text.text = "";
-                    break;
-				//
-				case "frr":
-					displayText = "";
-                    text.text = "";
-                    break;
-				//
-				case "frf":
-					displayText = "";
-                    text.text = "";
-                    break;
-				//
-				case "ffq":
-					displayText = "";
-                    text.text = "";
-                    break;
-				//
-				case "ffe":
-					displayText = "";
-                    text.text = "";
-                    break;
-				//
-				case "ffr":
-					displayText = "";
-                    text.text = "";
-                    break;
-				//
-				case "fff":
-					displayText = "";
-                    text.text = "";
-                    break;
-				default:
+				break;
+                #endregion
+
+                default:
                     displayText = "";
-                    text.text = "";
+                    
                     break;
             }
             //clear runes
@@ -724,7 +510,6 @@ public class SpellDisplay : MonoBehaviour
 
         }
 	}
-
 
     //Uses raycasts to find what a spell is targeting
 	void getTarget()
@@ -776,5 +561,14 @@ public class SpellDisplay : MonoBehaviour
         }
 
     }
+
+    public void Clear()
+    {
+        displayText = "";
+               
+    }
+
+
+
 }
 
