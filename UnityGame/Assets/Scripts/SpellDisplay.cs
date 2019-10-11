@@ -42,7 +42,7 @@ public class SpellDisplay : MonoBehaviour
 
 
 
-    //char[,] symbols = new char[3,4] {{'\u16B2', '\u16B7', '\u16D2', '\u16C7' }, {'\u16D7', '\u16C1', '\u0000', '\u16C3' }, {'\u16D6', /*'\u16BB'*/'ᚻ', '\u16AB', '\u16C8' }};
+    //char[,] symbols = new char[3,4] {{'\u16B2', '\u16B7', '\u16D2', '\u16C7' }, {'\u16D7', '\u16C1', '\u0000', '\u16C3' }, {'\u16D6', '\u16BB', '\u16AB', '\u16C8' }};
 
 
     void Start()
@@ -58,106 +58,50 @@ public class SpellDisplay : MonoBehaviour
             input = Input.inputString.ToLower();
             if (input == "q" || input == "e" || input == "r" || input == "f")
             {
-                //ensures spells only go to 3 commands
-                if (displayText.Length < 3)
-                {
-                    //Display rune
-                    switch (input)
-                    {
-                        case "q":
-                            if (displayText.Length == 0)
-                            {
-                                newRune1 = Instantiate(Resources.Load("Runes/Evocation"), gameObject.transform) as GameObject;
-                                newRune1.transform.localScale = new Vector3(4f, 4f, 4f);
-                                newRune1.transform.localPosition = newRune1.transform.localPosition + new Vector3(-30f, -50f, 0f);
-
-                            }
-                            else if (displayText.Length == 1)
-                            {
-                                newRune2 = Instantiate(Resources.Load("Runes/Self"), gameObject.transform) as GameObject;
-                                newRune2.transform.localScale = new Vector3(3.4f, 3.4f, 3.4f);
-                                newRune2.transform.localPosition = newRune2.transform.localPosition + new Vector3(0f, -50f, 0f);
-                            }
-                            else if (displayText.Length == 2)
-                            {
-                                newRune3 = Instantiate(Resources.Load("Runes/Gravity"), gameObject.transform) as GameObject;
-                                newRune3.transform.localScale = new Vector3(2.6f, 2.6f, 2.6f);
-                                newRune3.transform.localPosition = newRune3.transform.localPosition + new Vector3(30f, -50f, 0f);
-                            }
-                            break;
-                        case "e":
+				//ensures spells only go to 3 commands
+				if (displayText.Length < 3)
+				{
+					//Display rune
+					switch (input)
+					{
+						case "q":
 							if (displayText.Length == 0)
-							{
-								newRune1 = Instantiate(Resources.Load("Runes/Enchantment"), gameObject.transform) as GameObject;
-								newRune1.transform.localScale = new Vector3(4.5f, 4.5f, 4.5f);
-								newRune1.transform.localPosition = newRune1.transform.localPosition + new Vector3(-30f, -50f, 0f);
-
-							}
+								newRune1 = MakeRune("Runes/Evocation", gameObject.transform, new Vector3(4f, 4f, 4f), new Vector3(-30f, -50f, 0f));
 							else if (displayText.Length == 1)
-							{
-								newRune2 = Instantiate(Resources.Load("Runes/Stranger"), gameObject.transform) as GameObject;
-								newRune2.transform.localScale = new Vector3(2.5f, 2.5f, 2.5f);
-								newRune2.transform.localPosition = newRune2.transform.localPosition + new Vector3(0f, -50f, 0f);
-							}
+								newRune2 = MakeRune("Runes/Self", gameObject.transform, new Vector3(3.4f, 3.4f, 3.4f), new Vector3(0f, -50f, 0f));
 							else if (displayText.Length == 2)
-							{
-								newRune3 = Instantiate(Resources.Load("Runes/Primal"), gameObject.transform) as GameObject;
-								newRune3.transform.localScale = new Vector3(4.5f, 4.5f, 4.5f);
-								newRune3.transform.localPosition = newRune3.transform.localPosition + new Vector3(30f, -50f, 0f);
-							}
+								newRune3 = MakeRune("Runes/Gravity", gameObject.transform, new Vector3(2.6f, 2.6f, 2.6f), new Vector3(30f, -50f, 0f));
 							break;
-                        case "r":
+						case "e":
 							if (displayText.Length == 0)
-							{
-								newRune1 = Instantiate(Resources.Load("Runes/Transmutation"), gameObject.transform) as GameObject;
-								newRune1.transform.localScale = new Vector3(3f, 3f, 3f);
-								newRune1.transform.localPosition = newRune1.transform.localPosition + new Vector3(-30f, -50f, 0f);
-
-							}
+								newRune1 = MakeRune("Runes/Enchantment", gameObject.transform, new Vector3(4.5f, 4.5f, 4.5f), new Vector3(-30f, -50f, 0f));
 							else if (displayText.Length == 1)
-							{
-								newRune2 = Instantiate(Resources.Load("Runes/Area"), gameObject.transform) as GameObject;
-								newRune2.transform.localScale = new Vector3(2.5f, 2.5f, 2.5f);
-								newRune2.transform.localPosition = newRune2.transform.localPosition + new Vector3(0f, -50f, 0f);
-							}
+								newRune2 = MakeRune("Runes/Stranger", gameObject.transform, new Vector3(2.5f, 2.5f, 2.5f), new Vector3(0f, -50f, 0f));
 							else if (displayText.Length == 2)
-							{
-								newRune3 = Instantiate(Resources.Load("Runes/Mental"), gameObject.transform) as GameObject;
-								newRune3.transform.localScale = new Vector3(4f, 4f, 4f);
-								newRune3.transform.localPosition = newRune3.transform.localPosition + new Vector3(30f, -50f, 0f);
-							}
+								newRune3 = MakeRune("Runes/Primal", gameObject.transform, new Vector3(4.5f, 4.5f, 4.5f), new Vector3(30f, -50f, 0f));
 							break;
-                        case "f":
+						case "r":
 							if (displayText.Length == 0)
-							{
-								newRune1 = Instantiate(Resources.Load("Runes/Illusion"), gameObject.transform) as GameObject;
-								newRune1.transform.localScale = new Vector3(2.8f, 2.8f, 2.8f);
-								newRune1.transform.localPosition = newRune1.transform.localPosition + new Vector3(-30f, -50f, 0f);
-
-							}
+								newRune1 = MakeRune("Runes/Transmutation", gameObject.transform, new Vector3(3f, 3f, 3f), new Vector3(-30f, -50f, 0f));
 							else if (displayText.Length == 1)
-							{
-								newRune2 = Instantiate(Resources.Load("Runes/World"), gameObject.transform) as GameObject;
-								newRune2.transform.localScale = new Vector3(3.2f, 3.2f, 3.2f);
-								newRune2.transform.localPosition = newRune2.transform.localPosition + new Vector3(0f, -50f, 0f);
-							}
+								newRune2 = MakeRune("Runes/Area", gameObject.transform, new Vector3(2.5f, 2.5f, 2.5f), new Vector3(0f, -50f, 0f));
 							else if (displayText.Length == 2)
-							{
-								newRune3 = Instantiate(Resources.Load("Runes/Ascendant"), gameObject.transform) as GameObject;
-								newRune3.transform.localScale = new Vector3(3f, 3f, 3f);
-								newRune3.transform.localPosition = newRune3.transform.localPosition + new Vector3(30f, -50f, 0f);
-							}
+								newRune3 = MakeRune("Runes/Mental", gameObject.transform, new Vector3(4f, 4f, 4f), new Vector3(30f, -50f, 0f));
 							break;
-                        default:
-                            break;
-                    }
-
-                    displayText += input;
-                }
-                
-				
+						case "f":
+							if (displayText.Length == 0)
+								newRune1 = MakeRune("Runes/Illusion", gameObject.transform, new Vector3(2.8f, 2.8f, 2.8f), new Vector3(-30f, -50f, 0f));
+							else if (displayText.Length == 1)
+								newRune2 = MakeRune("Runes/World", gameObject.transform, new Vector3(3.2f, 3.2f, 3.2f), new Vector3(0f, -50f, 0f));
+							else if (displayText.Length == 2)
+								newRune3 = MakeRune("Runes/Ascendant", gameObject.transform, new Vector3(3f, 3f, 3f), new Vector3(30f, -50f, 0f));
+							break;
+						default:
+							break;
+					}
+					displayText += input;
+				}
 			}
-			
         }
 
         //Detects if spell timer is up or the user is ending a spel
@@ -166,34 +110,27 @@ public class SpellDisplay : MonoBehaviour
             switch (activeSpell)
             {
                 case "JUMP":
-                    
                     player.GetComponent<FirstPersonAIO>().jumpPower = 5;    // HEY LOOKIE HERE: This should probably be changed to be a variable in some way
-                    
                     break;
                 case "HASTE":
-                    
                     player.GetComponent<FirstPersonAIO>().sprintSpeed = 7;
-                    
                     break;
                 case "TELEKINESIS":
-                    
                     mat.SetColor("_EmissiveColor", new Color(0,0,0,0));
                     mat.DisableKeyword("_UseEmissiveIntensity");
                     spellTarget.GetComponent<Rigidbody>().useGravity = true;
                     //spellTarget.transform.parent = unchild;
-                    
                     break;
                 case "LEVITATION":
-                    
                     Destroy(spellTarget.GetComponent<Levitate>());
                     spellTarget.GetComponent<Rigidbody>().useGravity = true;
                     spellTarget.GetComponent<Rigidbody>().freezeRotation = false;
                     break;
                 default:
                     displayText = "";
-                   
                     break;
             }
+
             //clear runes
             if (newRune1 != null)
             {
@@ -274,7 +211,6 @@ public class SpellDisplay : MonoBehaviour
 
 	void FixedUpdate()
 	{
-
         //Probably move this to when the spell activates, then deactivate it when a spell ends
         //Otherwise have it under where spell effects take place
         //Detects if haste is active and then modifies FOV
@@ -317,12 +253,10 @@ public class SpellDisplay : MonoBehaviour
         }
 
         //Displays spells
-
         if (displayText.Length == 3 && activeSpell == null)
         {
             switch (displayText)
             {
-
                 #region Fireball
                 case "qee":
                     fireballUI.SetActive(true);
@@ -354,9 +288,7 @@ public class SpellDisplay : MonoBehaviour
                     if (activeSpell == null)
                     {
                         levitationUI.SetActive(true);
-                        
                     }
-                   
                     break;
                 #endregion
                 #region Telekinesis
@@ -364,26 +296,20 @@ public class SpellDisplay : MonoBehaviour
                     if (activeSpell == null)
                     {
                         telekinesisUI.SetActive(true);
-                        
                     }
-
                     break;
                 #endregion
-
                 default:
                     displayText = "";
-                    
                     break;
             }
         }
 
         //Activates Spells
-        if (Input.GetMouseButtonDown(0) && displayText.Length == 3 && activeSpell == null) 
-
+        if (Input.GetMouseButtonDown(0) && displayText.Length == 3 && activeSpell == null)
         {
             switch (displayText)
             {
-
                 #region Fireball
                 case "qee":
                     Instantiate(fireball, new Vector3(playerCamera.transform.position.x, playerCamera.transform.position.y + .1f, playerCamera.transform.position.z), playerCamera.transform.rotation);
@@ -432,7 +358,6 @@ public class SpellDisplay : MonoBehaviour
                 case "eeq":
 					if (activeSpell == null)
 					{
-                         
                         getTarget();
 						if (spellTarget.GetComponent<Rigidbody>() != null && spellTarget != player)
 						{
@@ -445,8 +370,6 @@ public class SpellDisplay : MonoBehaviour
                             levitationUI.SetActive(false);
                         }
 					}
-
-
                     break;
                 #endregion
                 #region Telekinesis
@@ -463,7 +386,6 @@ public class SpellDisplay : MonoBehaviour
                             if (spellTarget.GetComponent<Renderer>() != null)
                             {
                                 mat = spellTarget.GetComponent<Renderer>().material;
-
                                 mat.EnableKeyword("_UseEmissiveIntensity");
                                 mat.SetColor("_EmissiveColor", new Color(1, 1, 1, 1) * .2f);
                             }
@@ -480,7 +402,6 @@ public class SpellDisplay : MonoBehaviour
                             //activates effects of telekinesis
                             spellTarget.GetComponent<Rigidbody>().useGravity = false;
                             spellEffectsTimer = spellLongevity * 10;
-
                         }
 					}
 				break;
@@ -488,7 +409,6 @@ public class SpellDisplay : MonoBehaviour
 
                 default:
                     displayText = "";
-                    
                     break;
             }
             //clear runes
@@ -507,7 +427,6 @@ public class SpellDisplay : MonoBehaviour
                 GameObject.Destroy(newRune3);
                 newRune3 = null;
             }
-
         }
 	}
 
@@ -559,16 +478,21 @@ public class SpellDisplay : MonoBehaviour
                 playerTouching = false;
             }
         }
-
     }
+
+	public GameObject MakeRune(string path, Transform parent, Vector3 scale, Vector3 position)
+	{
+		GameObject rune = Instantiate(Resources.Load(path), parent) as GameObject;
+		rune.transform.localScale = scale;
+		rune.transform.localPosition = rune.transform.localPosition + position;
+
+		return rune;
+	}
 
     public void Clear()
     {
         displayText = "";
                
     }
-
-
-
 }
 
