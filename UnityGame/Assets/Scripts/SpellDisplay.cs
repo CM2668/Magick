@@ -332,6 +332,7 @@ public class SpellDisplay : MonoBehaviour
                         spellEffectsTimer = spellLongevity;
                         displayText = "";
                         jumpUI.SetActive(false);
+                        activeSpell = "JUMP";
                     }
                     else
                     {
@@ -347,6 +348,7 @@ public class SpellDisplay : MonoBehaviour
                         player.GetComponent<FirstPersonAIO>().sprintSpeed = 10;
                         spellEffectsTimer = spellLongevity;
                         hasteUI.SetActive(false);
+                        activeSpell = "HASTE";
                     }
                     else
                     {
@@ -368,6 +370,7 @@ public class SpellDisplay : MonoBehaviour
 							spellEffectsTimer = spellLongevity * 6;
                             displayText = "";
                             levitationUI.SetActive(false);
+                            activeSpell = "LEVITATION";
                         }
 					}
                     break;
@@ -402,6 +405,7 @@ public class SpellDisplay : MonoBehaviour
                             //activates effects of telekinesis
                             spellTarget.GetComponent<Rigidbody>().useGravity = false;
                             spellEffectsTimer = spellLongevity * 10;
+                            activeSpell = "TELEKINESIS";
                         }
 					}
 				break;
