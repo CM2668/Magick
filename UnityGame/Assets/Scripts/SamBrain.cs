@@ -19,15 +19,34 @@ public class SamBrain : MonoBehaviour
 		}
     }
 
+	void FixedUpdate()
+	{
+		if(enemy != null)
+		{
+			MoveToTarget();
+		}
+	}
+
 	void OnTriggerStay(Collider obj)
 	{
 		if(obj.tag == "Player")
 		{
-			getTarget();
+			if(enemy == null)
+				GetTarget();
 		}
 	}
 
-	void getTarget()
+	/*void OnTriggerExit()
+	{
+		if(enemy != null)
+		{
+			enemy = null;
+			DeAgrro();
+			Home();
+		}
+	}*/
+
+	void GetTarget()
 	{
 		RaycastHit hit;
 		Ray ray = new Ray(transform.position, transform.forward);
@@ -43,14 +62,20 @@ public class SamBrain : MonoBehaviour
 		}
 		else
 			Debug.Log("Already have a target");
+	}
 
-		//Debug code
-		//Debug.DrawRay(ray.origin, ray.direction, Color.red, 5f);
-		if (enemy != null && enemy.GetComponent<Rigidbody>() != null)
-			Debug.Log("Target: " + enemy.name);
-		else if (enemy != null)
-			Debug.Log(enemy.name + " cannot be targeted");
-		else
-			Debug.Log("No Target | " + ray.GetPoint(10f) + " | " + transform.position);
+	void MoveToTarget()
+	{
+		transform.LookAt(enemy.transform);
+	}
+
+	void DeAgrro()
+	{
+
+	}
+
+	void Home()
+	{
+
 	}
 }
