@@ -60,8 +60,6 @@ public class SamBrain : MonoBehaviour
 				enemy = hit.transform.gameObject;
 			}
 		}
-		else
-			Debug.Log("Already have a target");
 	}
 
 	void MoveToTarget()
