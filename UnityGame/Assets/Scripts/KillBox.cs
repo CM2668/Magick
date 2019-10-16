@@ -27,9 +27,8 @@ public class KillBox : MonoBehaviour
 		
 		if(obj.tag == "Player")
 		{
-			Debug.Log("HERE");
-			player.transform.position = startPos;
 			player.transform.rotation = startRot;
+			player.transform.position = startPos;
 		}
 	}
 }

@@ -15,6 +15,8 @@ public class UIController : MonoBehaviour
     public GameObject PauseMenu;
     public GameObject spellDisplay;
     public GameObject HUD;
+    public GameObject SpellbookUI;
+    public GameObject KnownSpells;
     #endregion
 
     #region Buttons
@@ -26,7 +28,12 @@ public class UIController : MonoBehaviour
     public Button PauseToMainButton;
     #endregion
 
+    #region KnowsSpells
+    bool knowsFireball = false;
+    #endregion
+
     bool InOptionsMenu = false;
+    bool InSpellbookMenu = false;
 
     void Start()
     {
@@ -41,6 +48,7 @@ public class UIController : MonoBehaviour
 
     private void Update()
     {
+        //open pause menu
         if (Input.GetKeyDown(KeyCode.C) && InOptionsMenu == false)
         {
             InOptionsMenu = true;
@@ -50,9 +58,9 @@ public class UIController : MonoBehaviour
             HUD.SetActive(false);
             Cursor.visible = true;
             PauseMenu.SetActive(true);
-
             spellDisplay.GetComponent<SpellDisplay>().Clear();
         }
+        //close pause menu
         else if (Input.GetKeyDown(KeyCode.C) && InOptionsMenu == true)
         {
             InOptionsMenu = false;
@@ -63,6 +71,31 @@ public class UIController : MonoBehaviour
             Cursor.visible = false;
             PauseMenu.SetActive(false);
         }
+        //open Spellbook
+        if (Input.GetKeyDown(KeyCode.Tab) && InSpellbookMenu == false)
+        {
+            InSpellbookMenu = true;
+            firstPersonGroup.GetComponent<FirstPersonAIO>().playerCanMove = false;
+            firstPersonGroup.GetComponent<FirstPersonAIO>().enableCameraMovement = false;
+            Cursor.lockState = CursorLockMode.None;
+            HUD.SetActive(false);
+            Cursor.visible = true;
+            SpellbookUI.SetActive(true);
+            spellDisplay.GetComponent<SpellDisplay>().Clear();
+        }
+        //close Spellbook
+        else if(Input.GetKeyDown(KeyCode.Tab) && InSpellbookMenu == true)
+        {
+            InSpellbookMenu = false;
+            firstPersonGroup.GetComponent<FirstPersonAIO>().playerCanMove = true;
+            firstPersonGroup.GetComponent<FirstPersonAIO>().enableCameraMovement = true;
+            Cursor.lockState = CursorLockMode.Locked;
+            HUD.SetActive(true);
+            Cursor.visible = false;
+            SpellbookUI.SetActive(false);
+        }
+
+
     }
 
     void MainToGame()
@@ -99,8 +132,25 @@ public class UIController : MonoBehaviour
         Debug.Log("Close Game");
     }
 
-    //Compass
+    public void AddToSpellbook(string spellname)
+    {
+        
+        switch (spellname)
+        {
+            #region Fireball
+            case "qee":
+                if (knowsFireball == false)
+                {
+                    knowsFireball = true;
+                    KnownSpells.GetComponent<Text>().text += "\nFireball Q-E-E"; 
+                }
 
-    //Tab for spellbook
+                break;
+            #endregion
+
+            default:
+                break;
+        }
+    }
 
 }

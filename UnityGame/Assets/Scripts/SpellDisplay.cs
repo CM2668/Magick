@@ -12,6 +12,9 @@ public class SpellDisplay : MonoBehaviour
     public GameObject playerCamera;
 	public GameObject spellTarget;
 	public GameObject spellGuide;
+    public GameObject UI;  
+
+    
 
     #region UISpellGameobjects
 
@@ -39,8 +42,6 @@ public class SpellDisplay : MonoBehaviour
     GameObject newRune2 = null;//Used to display runes on screen
     GameObject newRune3 = null;//Used to display runes on screen
     Material mat = null;//Used for telekinesis to get material of spellTarget;
-
-
 
     //char[,] symbols = new char[3,4] {{'\u16B2', '\u16B7', '\u16D2', '\u16C7' }, {'\u16D7', '\u16C1', '\u0000', '\u16C3' }, {'\u16D6', '\u16BB', '\u16AB', '\u16C8' }};
 
@@ -259,11 +260,12 @@ public class SpellDisplay : MonoBehaviour
             {
                 #region Fireball
                 case "qee":
+                    UI.GetComponent<UIController>().AddToSpellbook(displayText);
                     fireballUI.SetActive(true);
                     break;
                 #endregion
                 #region Grease Pool
-                case "qre":
+                case "qre":                  
                     greaseUI.SetActive(true);
                     break;
                 #endregion
