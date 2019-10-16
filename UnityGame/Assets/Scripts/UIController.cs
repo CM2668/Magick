@@ -24,12 +24,19 @@ public class UIController : MonoBehaviour
     public Button MainToOptionsButton;
     public Button MainToDesktopButton;
     public Button OptionsToMainButton;
-    public Button PauseToDekstopButton;
+    public Button PauseToGameButton;
+    public Button PauseToOptionsButton;
+    public Button PauseToCreditsButton;
     public Button PauseToMainButton;
     #endregion
 
     #region KnowsSpells
     bool knowsFireball = false;
+    bool knowsGreaseBall = false;
+    bool knowsJump = false;
+    bool knowsHaste = false;
+    bool knowsLevitation = false;
+    bool knowsTelekinesis = false;
     #endregion
 
     bool InOptionsMenu = false;
@@ -37,13 +44,14 @@ public class UIController : MonoBehaviour
 
     void Start()
     {
-
         MainToGameButton.onClick.AddListener(MainToGame);
         MainToOptionsButton.onClick.AddListener(MainToOptions);
         MainToDesktopButton.onClick.AddListener(ToDesktop);
         OptionsToMainButton.onClick.AddListener(OptionsToMain);
+        PauseToGameButton.onClick.AddListener(PauseToGame);
+        PauseToMainButton.onClick.AddListener(PauseToOptions);
+        PauseToCreditsButton.onClick.AddListener(PauseToCredits);
         PauseToMainButton.onClick.AddListener(PauseToMain);
-        PauseToDekstopButton.onClick.AddListener(ToDesktop);
     }
 
     private void Update()
@@ -95,7 +103,6 @@ public class UIController : MonoBehaviour
             SpellbookUI.SetActive(false);
         }
 
-
     }
 
     void MainToGame()
@@ -118,6 +125,27 @@ public class UIController : MonoBehaviour
     {
         MainMenuOptions.SetActive(false);
         MainMenu.SetActive(true);
+    }
+
+    void PauseToGame()
+    {
+        InOptionsMenu = false;
+        firstPersonGroup.GetComponent<FirstPersonAIO>().playerCanMove = true;
+        firstPersonGroup.GetComponent<FirstPersonAIO>().enableCameraMovement = true;
+        Cursor.lockState = CursorLockMode.Locked;
+        HUD.SetActive(true);
+        Cursor.visible = false;
+        PauseMenu.SetActive(false);
+    }
+
+    void PauseToOptions()
+    {
+        Debug.Log("open Options");
+    }
+
+    void PauseToCredits()
+    {
+        Debug.Log("open Credits");
     }
 
     void PauseToMain()
@@ -145,6 +173,54 @@ public class UIController : MonoBehaviour
                     KnownSpells.GetComponent<Text>().text += "\nFireball Q-E-E"; 
                 }
 
+                break;
+            #endregion
+            #region Grease Ball
+            case "qre":
+                if (knowsGreaseBall == false)
+                {
+                    knowsGreaseBall = true;
+                    KnownSpells.GetComponent<Text>().text += "\nGrease Ball Q-R-E";
+                }
+
+                break;
+            #endregion
+            #region Jump
+            case "eqq":
+                if (knowsJump == false)
+                {
+                    knowsJump = true;
+                    KnownSpells.GetComponent<Text>().text += "\nJump E-Q-Q";
+                }
+
+                break;
+            #endregion
+            #region Haste
+            case "eqf":
+                if (knowsHaste == false)
+                {
+                    knowsHaste = true;
+                    KnownSpells.GetComponent<Text>().text += "\nHaste E-Q-F";
+                }
+
+                break;
+            #endregion
+            #region Levitation
+            case "eeq":
+                if (knowsLevitation == false)
+                {
+                    knowsLevitation = true;
+                    KnownSpells.GetComponent<Text>().text += "\nLevitation E-E-Q";
+                }
+                break;
+            #endregion
+            #region Telekinesis
+            case "req":
+                if (knowsTelekinesis == false)
+                {
+                    knowsTelekinesis = true;
+                    KnownSpells.GetComponent<Text>().text += "\nTelekinesis R-E-Q";
+                }
                 break;
             #endregion
 

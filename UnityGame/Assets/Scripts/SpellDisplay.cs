@@ -265,12 +265,14 @@ public class SpellDisplay : MonoBehaviour
                     break;
                 #endregion
                 #region Grease Pool
-                case "qre":                  
+                case "qre":
+                    UI.GetComponent<UIController>().AddToSpellbook(displayText);
                     greaseUI.SetActive(true);
                     break;
                 #endregion
                 #region Jump
                 case "eqq":
+                    UI.GetComponent<UIController>().AddToSpellbook(displayText);
                     if (activeSpell == null)
                     {
                         jumpUI.SetActive(true);
@@ -279,6 +281,7 @@ public class SpellDisplay : MonoBehaviour
                 #endregion
                 #region Haste
                 case "eqf":
+                    UI.GetComponent<UIController>().AddToSpellbook(displayText);
                     if (activeSpell == null)
                     {
                         hasteUI.SetActive(true);
@@ -287,6 +290,7 @@ public class SpellDisplay : MonoBehaviour
                 #endregion
                 #region Levitation
                 case "eeq":
+                    UI.GetComponent<UIController>().AddToSpellbook(displayText);
                     if (activeSpell == null)
                     {
                         levitationUI.SetActive(true);
@@ -295,6 +299,7 @@ public class SpellDisplay : MonoBehaviour
                 #endregion
                 #region Telekinesis
                 case "req":
+                    UI.GetComponent<UIController>().AddToSpellbook(displayText);
                     if (activeSpell == null)
                     {
                         telekinesisUI.SetActive(true);
