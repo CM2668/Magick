@@ -49,7 +49,7 @@ public class UIController : MonoBehaviour
         MainToDesktopButton.onClick.AddListener(ToDesktop);
         OptionsToMainButton.onClick.AddListener(OptionsToMain);
         PauseToGameButton.onClick.AddListener(PauseToGame);
-        PauseToMainButton.onClick.AddListener(PauseToOptions);
+        PauseToOptionsButton.onClick.AddListener(PauseToOptions);
         PauseToCreditsButton.onClick.AddListener(PauseToCredits);
         PauseToMainButton.onClick.AddListener(PauseToMain);
     }

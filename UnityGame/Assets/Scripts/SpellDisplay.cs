@@ -132,22 +132,7 @@ public class SpellDisplay : MonoBehaviour
                     break;
             }
 
-            //clear runes
-            if (newRune1 != null)
-            {
-                GameObject.Destroy(newRune1);
-                newRune1 = null;
-            }
-            if (newRune2 != null)
-            {
-                GameObject.Destroy(newRune2);
-                newRune2 = null;
-            }
-            if (newRune3 != null)
-            {
-                GameObject.Destroy(newRune3);
-                newRune3 = null;
-            }
+            Clear();
             activeSpell = null;
             spellEffectsTimer = 0;
         }
@@ -156,23 +141,8 @@ public class SpellDisplay : MonoBehaviour
         else if (Input.GetMouseButtonDown(1))
         {
             displayText = "";
-            
-            //clear runes
-            if (newRune1 != null)
-            {
-                GameObject.Destroy(newRune1);
-                newRune1 = null;
-            }
-            if (newRune2 != null)
-            {
-                GameObject.Destroy(newRune2);
-                newRune2 = null;
-            }
-            if (newRune3 != null)
-            {
-                GameObject.Destroy(newRune3);
-                newRune3 = null;
-            }
+
+            Clear();
         }
 
         //Counts down spell timer
@@ -422,22 +392,7 @@ public class SpellDisplay : MonoBehaviour
                     displayText = "";
                     break;
             }
-            //clear runes
-            if (newRune1 != null)
-            {
-                GameObject.Destroy(newRune1);
-                newRune1 = null;
-            }
-            if (newRune2 != null)
-            {
-                GameObject.Destroy(newRune2);
-                newRune2 = null;
-            }
-            if (newRune3 != null)
-            {
-                GameObject.Destroy(newRune3);
-                newRune3 = null;
-            }
+            Clear();
         }
 	}
 
@@ -502,6 +457,31 @@ public class SpellDisplay : MonoBehaviour
 
     public void Clear()
     {
+
+
+        fireballUI.SetActive(false);
+        greaseUI.SetActive(false);
+        jumpUI.SetActive(false);
+        levitationUI.SetActive(false);
+        hasteUI.SetActive(false);
+        telekinesisUI.SetActive(false);
+
+        if (newRune1 != null)
+        {
+            GameObject.Destroy(newRune1);
+            newRune1 = null;
+        }
+        if (newRune2 != null)
+        {
+            GameObject.Destroy(newRune2);
+            newRune2 = null;
+        }
+        if (newRune3 != null)
+        {
+            GameObject.Destroy(newRune3);
+            newRune3 = null;
+        }
+
         displayText = "";
                
     }
