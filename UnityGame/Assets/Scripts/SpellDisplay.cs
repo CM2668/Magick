@@ -132,22 +132,7 @@ public class SpellDisplay : MonoBehaviour
                     break;
             }
 
-            //clear runes
-            if (newRune1 != null)
-            {
-                GameObject.Destroy(newRune1);
-                newRune1 = null;
-            }
-            if (newRune2 != null)
-            {
-                GameObject.Destroy(newRune2);
-                newRune2 = null;
-            }
-            if (newRune3 != null)
-            {
-                GameObject.Destroy(newRune3);
-                newRune3 = null;
-            }
+            Clear();
             activeSpell = null;
             spellEffectsTimer = 0;
         }
@@ -156,23 +141,8 @@ public class SpellDisplay : MonoBehaviour
         else if (Input.GetMouseButtonDown(1))
         {
             displayText = "";
-            
-            //clear runes
-            if (newRune1 != null)
-            {
-                GameObject.Destroy(newRune1);
-                newRune1 = null;
-            }
-            if (newRune2 != null)
-            {
-                GameObject.Destroy(newRune2);
-                newRune2 = null;
-            }
-            if (newRune3 != null)
-            {
-                GameObject.Destroy(newRune3);
-                newRune3 = null;
-            }
+
+            Clear();
         }
 
         //Counts down spell timer
@@ -265,12 +235,14 @@ public class SpellDisplay : MonoBehaviour
                     break;
                 #endregion
                 #region Grease Pool
-                case "qre":                  
+                case "qre":
+                    UI.GetComponent<UIController>().AddToSpellbook(displayText);
                     greaseUI.SetActive(true);
                     break;
                 #endregion
                 #region Jump
                 case "eqq":
+                    UI.GetComponent<UIController>().AddToSpellbook(displayText);
                     if (activeSpell == null)
                     {
                         jumpUI.SetActive(true);
@@ -279,6 +251,7 @@ public class SpellDisplay : MonoBehaviour
                 #endregion
                 #region Haste
                 case "eqf":
+                    UI.GetComponent<UIController>().AddToSpellbook(displayText);
                     if (activeSpell == null)
                     {
                         hasteUI.SetActive(true);
@@ -287,6 +260,7 @@ public class SpellDisplay : MonoBehaviour
                 #endregion
                 #region Levitation
                 case "eeq":
+                    UI.GetComponent<UIController>().AddToSpellbook(displayText);
                     if (activeSpell == null)
                     {
                         levitationUI.SetActive(true);
@@ -295,6 +269,7 @@ public class SpellDisplay : MonoBehaviour
                 #endregion
                 #region Telekinesis
                 case "req":
+                    UI.GetComponent<UIController>().AddToSpellbook(displayText);
                     if (activeSpell == null)
                     {
                         telekinesisUI.SetActive(true);
@@ -417,22 +392,7 @@ public class SpellDisplay : MonoBehaviour
                     displayText = "";
                     break;
             }
-            //clear runes
-            if (newRune1 != null)
-            {
-                GameObject.Destroy(newRune1);
-                newRune1 = null;
-            }
-            if (newRune2 != null)
-            {
-                GameObject.Destroy(newRune2);
-                newRune2 = null;
-            }
-            if (newRune3 != null)
-            {
-                GameObject.Destroy(newRune3);
-                newRune3 = null;
-            }
+            Clear();
         }
 	}
 
@@ -497,6 +457,31 @@ public class SpellDisplay : MonoBehaviour
 
     public void Clear()
     {
+
+
+        fireballUI.SetActive(false);
+        greaseUI.SetActive(false);
+        jumpUI.SetActive(false);
+        levitationUI.SetActive(false);
+        hasteUI.SetActive(false);
+        telekinesisUI.SetActive(false);
+
+        if (newRune1 != null)
+        {
+            GameObject.Destroy(newRune1);
+            newRune1 = null;
+        }
+        if (newRune2 != null)
+        {
+            GameObject.Destroy(newRune2);
+            newRune2 = null;
+        }
+        if (newRune3 != null)
+        {
+            GameObject.Destroy(newRune3);
+            newRune3 = null;
+        }
+
         displayText = "";
                
     }
