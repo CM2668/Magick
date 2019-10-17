@@ -10,7 +10,6 @@ public class CharacterController : MonoBehaviour {
 
 	void Start () {
 		move = GetComponent<Rigidbody>();
-		PersistentManager.instance.setPlayer(gameObject);
 	}
 
 	void Update () {
@@ -47,7 +46,6 @@ public class CharacterController : MonoBehaviour {
 		//player death
 		if(health <= 0) {
 			Destroy(gameObject);
-			PersistentManager.instance.setGameState("Game Over");
 		}
 	}
 }

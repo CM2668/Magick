@@ -5,11 +5,16 @@ using UnityEngine;
 public class SamBrain : MonoBehaviour
 {
 	GameObject enemy;
+	RaycastHit hit;
+	Ray ray;
+	int layerMask;
 
-    void Start()
+	void Start()
     {
-        
-    }
+		ray = new Ray(transform.position, transform.forward);
+		layerMask = 0 << 8;
+		layerMask = ~layerMask;
+	}
 
     void Update()
     {
@@ -32,7 +37,7 @@ public class SamBrain : MonoBehaviour
 		if(obj.tag == "Player")
 		{
 			if(enemy == null)
-				enemy = GetTarget();
+				GetTarget();
 		}
 	}
 
@@ -46,23 +51,15 @@ public class SamBrain : MonoBehaviour
 		}
 	}*/
 
-	GameObject GetTarget()
+	void GetTarget()
 	{
-		GameObject target = null;
-		RaycastHit hit;
-		Ray ray = new Ray(transform.position, transform.forward);
-		int layerMask = 0 << 8;
-		layerMask = ~layerMask;
-
 		if (Physics.Raycast(ray, out hit, 50, layerMask))
 		{
 			if (hit.transform.gameObject.tag == "Player")
 			{
-				target = hit.transform.gameObject;
+				enemy = hit.transform.gameObject;
 			}
 		}
-
-		return target;
 	}
 
 	void MoveToTarget()
@@ -70,9 +67,13 @@ public class SamBrain : MonoBehaviour
 		transform.LookAt(enemy.transform);
 	}
 
-	void DeAgrro()
+	void DeAggro()
 	{
-		
+		if(PersistentManager.instance.GetZone() != "Forest")
+		{
+			enemy = null;
+			Home();
+		}
 	}
 
 	void Home()
