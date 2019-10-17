@@ -4,48 +4,49 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class PersistentManager : MonoBehaviour {
+public class PersistentManager : MonoBehaviour
+{
 	public static PersistentManager instance {get; private set;}
 	public Button resetButton;
 	public GameObject player;
-	public string gameState;
+	public string zone;
+	public GameObject townArea;
+	public GameObject forestArea;
 
-	private void Awake() {
-		if(instance == null) {
+	private void Awake()
+	{
+		if(instance == null)
+		{
 			instance = this;
 			DontDestroyOnLoad(gameObject);
 		}
-		else {
+		else
+		{
 			Destroy(gameObject);
 		}
 		
 		player = GameObject.FindGameObjectWithTag("Player");
-		gameState = "Main Menu";
 	}
 
-	void Update() {
-
-	}
-
-	void FixedUpdate() {
+	void Update()
+	{
 
 	}
 
-	public void startGame() {
-		SceneManager.LoadScene("Realm 1");
-		gameState = "Playing";
+	void FixedUpdate()
+	{
+
 	}
 
-	public void resetWorld() {
+	public void resetWorld()
+	{
 		Debug.Log("Resetting World");	
-		SceneManager.LoadScene("Realm 1");
+		SceneManager.LoadScene("MainScene");
 
 		if(player == null)
 			player = GameObject.FindGameObjectWithTag("Player");
-		gameState = "Playing";
 	}
 
-	public void setPlayer(GameObject p) {player = p;}
-	public void setReset(Button b) {resetButton = b;}
-	public void setGameState(string g) {gameState = g;}
+	public void SetZone(string z) {zone = z;}
+	public string GetZone() {return zone;}
 }
