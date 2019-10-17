@@ -7,9 +7,6 @@ public class EnterForest : MonoBehaviour
     void OnTriggerEnter(Collider obj)
 	{
 		if (obj.tag == "Player")
-		{
-			Debug.Log("Entered Forest");
 			PersistentManager.instance.SetZone("Forest");
-		}
 	}
 }
