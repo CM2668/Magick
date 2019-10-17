@@ -32,7 +32,7 @@ public class SamBrain : MonoBehaviour
 		if(obj.tag == "Player")
 		{
 			if(enemy == null)
-				GetTarget();
+				enemy = GetTarget();
 		}
 	}
 
@@ -46,8 +46,9 @@ public class SamBrain : MonoBehaviour
 		}
 	}*/
 
-	void GetTarget()
+	GameObject GetTarget()
 	{
+		GameObject target = null;
 		RaycastHit hit;
 		Ray ray = new Ray(transform.position, transform.forward);
 		int layerMask = 0 << 8;
@@ -57,9 +58,11 @@ public class SamBrain : MonoBehaviour
 		{
 			if (hit.transform.gameObject.tag == "Player")
 			{
-				enemy = hit.transform.gameObject;
+				target = hit.transform.gameObject;
 			}
 		}
+
+		return target;
 	}
 
 	void MoveToTarget()
@@ -69,7 +72,7 @@ public class SamBrain : MonoBehaviour
 
 	void DeAgrro()
 	{
-
+		
 	}
 
 	void Home()
