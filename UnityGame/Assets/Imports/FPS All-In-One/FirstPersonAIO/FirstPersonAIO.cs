@@ -372,7 +372,7 @@ public class BETA_SETTINGS{
         speed = walkByDefault ? isCrouching ? walkSpeedInternal : (isSprinting ? inrSprintSpeed : walkSpeedInternal) : (isSprinting ? walkSpeedInternal : inrSprintSpeed);
         Ray ray = new Ray(transform.position, -transform.up);
         if(IsGrounded || fps_Rigidbody.velocity.y < 0.1) {
-            RaycastHit[] hits = Physics.RaycastAll(ray, capsule.height * jumpRayLength);
+            RaycastHit[] hits = Physics.RaycastAll(ray, 1.5f * jumpRayLength);  //This controls if the player is grounded, aka whether or not they can jump. Change the x in "...ray, x, jumpraylength) to adjust
             float nearest = float.PositiveInfinity;
             IsGrounded = false;
             for(int i = 0; i < hits.Length; i++) {

@@ -105,7 +105,7 @@ public class SpellDisplay : MonoBehaviour
 			}
         }
 
-        //Detects if spell timer is up or the user is ending a spel
+        //Detects if spell timer is up or the user is ending a spell
         if ((spellEffectsTimer <= 0 || Input.GetMouseButtonDown(1)) && activeSpell != null)
         {
             switch (activeSpell)
@@ -148,6 +148,12 @@ public class SpellDisplay : MonoBehaviour
         //Counts down spell timer
         else if (spellEffectsTimer > 0)
         {
+            //finds if the object has been destroyed
+            if(spellTarget == null)
+            {
+                activeSpell = null;
+            }
+
             spellEffectsTimer -= Time.deltaTime;
         }
 
@@ -277,7 +283,6 @@ public class SpellDisplay : MonoBehaviour
                     break;
                 #endregion
                 default:
-                    displayText = "";
                     break;
             }
         }
@@ -446,6 +451,7 @@ public class SpellDisplay : MonoBehaviour
         }
     }
 
+    //Creates runes
 	public GameObject MakeRune(string path, Transform parent, Vector3 scale, Vector3 position)
 	{
 		GameObject rune = Instantiate(Resources.Load(path), parent) as GameObject;
