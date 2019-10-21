@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class SamBrain : MonoBehaviour
 {
+	public NavMeshAgent Sam;
 	GameObject enemy;
 	RaycastHit hit;
 	Ray ray;
@@ -14,22 +17,23 @@ public class SamBrain : MonoBehaviour
 		ray = new Ray(transform.position, transform.forward);
 		layerMask = 0 << 8;
 		layerMask = ~layerMask;
+		Sam = gameObject.GetComponent<NavMeshAgent>();
 	}
 
     void Update()
     {
 		if(enemy != null)
 		{
-			Debug.Log("I SEE YOU");
+			//Debug.Log("I SEE YOU");
 		}
     }
 
 	void FixedUpdate()
 	{
 		if(enemy != null)
-		{
 			MoveToTarget();
-		}
+		if (PersistentManager.instance.GetZone() != "Forest")
+			DeAggro();
 	}
 
 	void OnTriggerStay(Collider obj)
@@ -40,16 +44,6 @@ public class SamBrain : MonoBehaviour
 				GetTarget();
 		}
 	}
-
-	/*void OnTriggerExit()
-	{
-		if(enemy != null)
-		{
-			enemy = null;
-			DeAgrro();
-			Home();
-		}
-	}*/
 
 	void GetTarget()
 	{
@@ -65,19 +59,29 @@ public class SamBrain : MonoBehaviour
 	void MoveToTarget()
 	{
 		transform.LookAt(enemy.transform);
+		Sam.SetDestination(enemy.transform.position);
+		GetTarget();
+		Debug.Log(hit.distance);
+		if (hit.distance <= 1)
+			Shank();
 	}
 
 	void DeAggro()
 	{
-		if(PersistentManager.instance.GetZone() != "Forest")
-		{
-			enemy = null;
-			Home();
-		}
+		enemy = null;
+		Home();
 	}
 
 	void Home()
 	{
+		Sam.SetDestination(new Vector3(-56f, 11f, 46.6f));
+	}
 
+	void Shank()
+	{
+		if(enemy.tag == "Player")
+		{
+			SceneManager.LoadScene("MainScene");
+		}
 	}
 }
