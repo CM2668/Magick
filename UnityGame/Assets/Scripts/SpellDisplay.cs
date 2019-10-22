@@ -12,9 +12,7 @@ public class SpellDisplay : MonoBehaviour
     public GameObject playerCamera;
 	public GameObject spellTarget;
 	public GameObject spellGuide;
-    public GameObject UI;  
-
-    
+    public GameObject UI;
 
     #region UISpellGameobjects
 
