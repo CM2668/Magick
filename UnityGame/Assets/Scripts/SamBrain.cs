@@ -5,34 +5,43 @@ using UnityEngine.AI;
 
 public class SamBrain : MonoBehaviour
 {
-	public NavMeshAgent Sam;
+	public NavMeshAgent moveSam;
 	GameObject enemy;
 	RaycastHit hit;
 	Ray ray;
 	int layerMask;
+	Vector3 home;
 
 	void Start()
     {
-		ray = new Ray(transform.position, transform.forward);
+		ray = new Ray(transform.position + transform.forward, transform.forward);
 		layerMask = 0 << 8;
 		layerMask = ~layerMask;
-		Sam = gameObject.GetComponent<NavMeshAgent>();
+		moveSam = gameObject.GetComponent<NavMeshAgent>();
+		home = transform.position;
+		moveSam.ResetPath();
 	}
 
     void Update()
     {
 		if(enemy != null)
 		{
-			//Debug.Log("I SEE YOU");
+			Debug.Log("I SEE YOU");
+		}
+		if (moveSam.hasPath)
+		{
+			Debug.Log("MOVING");
 		}
     }
 
 	void FixedUpdate()
 	{
-		if(enemy != null)
+		if (enemy != null)
+		{
 			MoveToTarget();
-		if (PersistentManager.instance.GetZone() != "Forest")
-			DeAggro();
+			if (PersistentManager.instance.GetZone() != "Forest")
+				DeAggro();
+		}
 	}
 
 	void OnTriggerStay(Collider obj)
@@ -40,13 +49,13 @@ public class SamBrain : MonoBehaviour
 		if(obj.tag == "Player")
 		{
 			if(enemy == null)
-				GetTarget();
+				GetTarget(obj.transform);
 		}
 	}
 
-	void GetTarget()
+	void GetTarget(Transform t)
 	{
-		if (Physics.Raycast(ray, out hit, 50, layerMask))
+		if (Physics.Raycast(transform.position + transform.forward, t.position, out hit, 50, layerMask))
 		{
 			if (hit.transform.gameObject.tag == "Player")
 			{
@@ -58,8 +67,8 @@ public class SamBrain : MonoBehaviour
 	void MoveToTarget()
 	{
 		transform.LookAt(enemy.transform);
-		Sam.SetDestination(enemy.transform.position);
-		GetTarget();
+		moveSam.SetDestination(enemy.transform.position);
+		GetTarget(enemy.transform);
 		Debug.Log(hit.distance);
 		if (hit.distance <= 1)
 			Shank();
@@ -73,7 +82,10 @@ public class SamBrain : MonoBehaviour
 
 	void Home()
 	{
-		Sam.SetDestination(new Vector3(-56f, 11f, 46.6f));
+		if (gameObject.transform.position != home)
+			moveSam.SetDestination(home);
+		else if (gameObject.transform.position == home)
+			transform.LookAt(home + new Vector3(1f, 0f, -1f));
 	}
 
 	void Shank()
