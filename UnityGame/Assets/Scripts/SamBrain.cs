@@ -14,7 +14,7 @@ public class SamBrain : MonoBehaviour
 
 	void Start()
     {
-		ray = new Ray(transform.position + transform.forward, transform.forward);
+		ray = new Ray(transform.position, transform.forward);
 		layerMask = 0 << 8;
 		layerMask = ~layerMask;
 		moveSam = gameObject.GetComponent<NavMeshAgent>();
@@ -24,14 +24,14 @@ public class SamBrain : MonoBehaviour
 
     void Update()
     {
-		if(enemy != null)
-		{
-			Debug.Log("I SEE YOU");
-		}
-		if (moveSam.hasPath)
-		{
-			Debug.Log("MOVING");
-		}
+		//if(enemy != null)
+		//{
+		//	Debug.Log("I SEE YOU");
+		//}
+		//if (moveSam.hasPath)
+		//{
+		//	Debug.Log("MOVING");
+		//}
     }
 
 	void FixedUpdate()
@@ -49,28 +49,28 @@ public class SamBrain : MonoBehaviour
 		if(obj.tag == "Player")
 		{
 			if(enemy == null)
-				GetTarget(obj.transform);
+				GetTarget();
 		}
 	}
 
-	void GetTarget(Transform t)
+	void GetTarget()
 	{
-		if (Physics.Raycast(transform.position + transform.forward, t.position, out hit, 50, layerMask))
+		if (Physics.Raycast(ray, out hit, 50, layerMask))
 		{
 			if (hit.transform.gameObject.tag == "Player")
 			{
 				enemy = hit.transform.gameObject;
 			}
 		}
+		//Debug.DrawRay(ray.origin, ray.direction, Color.red, 30f);
 	}
 
 	void MoveToTarget()
 	{
 		transform.LookAt(enemy.transform);
 		moveSam.SetDestination(enemy.transform.position);
-		GetTarget(enemy.transform);
-		Debug.Log(hit.distance);
-		if (hit.distance <= 1)
+		//Debug.Log(Vector3.Distance(gameObject.transform.position, enemy.transform.position));
+		if (Vector3.Distance(gameObject.transform.position, enemy.transform.position) <= 1.5f)
 			Shank();
 	}
 
