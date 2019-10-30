@@ -98,6 +98,9 @@ public class SamBrain : MonoBehaviour
 			moveSam.SetDestination(home);
 		else if (gameObject.transform.position == home)
 			transform.LookAt(home + new Vector3(1f, 0f, -1f));
+<<<<<<< HEAD
+>>>>>>> parent of 2389469... Mountain Shit BABYYYYY
+=======
 >>>>>>> parent of 2389469... Mountain Shit BABYYYYY
 	}
 

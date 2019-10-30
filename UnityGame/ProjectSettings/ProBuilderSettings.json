@@ -79,6 +79,9 @@
                 "value": "{\"m_Value\":true}"
             },
             {
+<<<<<<< HEAD
+>>>>>>> parent of 2389469... Mountain Shit BABYYYYY
+=======
 >>>>>>> parent of 2389469... Mountain Shit BABYYYYY
                 "type": "UnityEngine.ProBuilder.SelectionModifierBehavior, Unity.ProBuilder, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
                 "key": "editor.rectSelectModifier",
@@ -94,7 +97,10 @@
                 "key": "editor.selectMode",
                 "value": "{\"m_Value\":1}"
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of 2389469... Mountain Shit BABYYYYY
             },
             {
                 "type": "UnityEditor.ProBuilder.Actions.DetachFaces+DetachSetting, Unity.ProBuilder.Editor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
@@ -105,6 +111,9 @@
                 "type": "System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
                 "key": "meshImporter.smoothingAngle",
                 "value": "{\"m_Value\":1.0}"
+<<<<<<< HEAD
+>>>>>>> parent of 2389469... Mountain Shit BABYYYYY
+=======
 >>>>>>> parent of 2389469... Mountain Shit BABYYYYY
             }
         ]

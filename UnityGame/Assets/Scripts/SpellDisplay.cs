@@ -116,15 +116,21 @@ public class SpellDisplay : MonoBehaviour
                     break;
                 case "TELEKINESIS":
 <<<<<<< HEAD
+<<<<<<< HEAD
 					mat.SetColor("_EmissiveColor", new Color(0, 0, 0, 0));
 					mat.DisableKeyword("_UseEmissiveIntensity");
 					spellTarget.GetComponent<Rigidbody>().useGravity = true;
 					//spellTarget.transform.parent = unchild;
 =======
+=======
+>>>>>>> parent of 2389469... Mountain Shit BABYYYYY
                     mat.SetColor("_EmissiveColor", new Color(0,0,0,0));
                     mat.DisableKeyword("_UseEmissiveIntensity");
                     spellTarget.GetComponent<Rigidbody>().useGravity = true;
                     //spellTarget.transform.parent = unchild;
+<<<<<<< HEAD
+>>>>>>> parent of 2389469... Mountain Shit BABYYYYY
+=======
 >>>>>>> parent of 2389469... Mountain Shit BABYYYYY
                     break;
                 case "LEVITATION":
@@ -170,6 +176,7 @@ public class SpellDisplay : MonoBehaviour
 				#region TELEKINESIS
 				case "TELEKINESIS":
 <<<<<<< HEAD
+<<<<<<< HEAD
 					targetDistance = Vector3.Distance(spellGuide.transform.position, spellTarget.transform.position);
 					ForceMod = 2000;
 					ForceMod = ForceMod * targetDistance;
@@ -187,6 +194,8 @@ public class SpellDisplay : MonoBehaviour
 						spellTarget.GetComponent<Rigidbody>().velocity += new Vector3(Random.Range(-.05f, .05f), Random.Range(-.05f, .05f), Random.Range(-.05f, .05f));
 					}
 =======
+=======
+>>>>>>> parent of 2389469... Mountain Shit BABYYYYY
                     targetDistance = Vector3.Distance(spellGuide.transform.position, spellTarget.transform.position);
                     ForceMod = 2000;
                     ForceMod = ForceMod * targetDistance;
@@ -203,6 +212,9 @@ public class SpellDisplay : MonoBehaviour
                     {
                         spellTarget.GetComponent<Rigidbody>().velocity += new Vector3(Random.Range(-.05f, .05f), Random.Range(-.05f, .05f), Random.Range(-.05f, .05f));
                     }
+<<<<<<< HEAD
+>>>>>>> parent of 2389469... Mountain Shit BABYYYYY
+=======
 >>>>>>> parent of 2389469... Mountain Shit BABYYYYY
                     break;
 				#endregion
@@ -228,6 +240,7 @@ public class SpellDisplay : MonoBehaviour
             switch (activeSpell)
             {
 <<<<<<< HEAD
+<<<<<<< HEAD
 				#region TELEKINESIS
 				case "TELEKINESIS":
 					if (Vector3.Distance(spellGuide.transform.position, player.transform.position) <= 10 && Vector3.Distance(spellGuide.transform.position, player.transform.position) >= 3)
@@ -252,6 +265,8 @@ public class SpellDisplay : MonoBehaviour
 						spellGuide.transform.localPosition = move;
 					}
 =======
+=======
+>>>>>>> parent of 2389469... Mountain Shit BABYYYYY
                 case "TELEKINESIS":
                     if (Vector3.Distance(spellGuide.transform.position, player.transform.position) <= 10 && Vector3.Distance(spellGuide.transform.position, player.transform.position) >= 3)
                     {
@@ -274,6 +289,9 @@ public class SpellDisplay : MonoBehaviour
                         move.z = 3.2f;
                         spellGuide.transform.localPosition = move;
                     }
+<<<<<<< HEAD
+>>>>>>> parent of 2389469... Mountain Shit BABYYYYY
+=======
 >>>>>>> parent of 2389469... Mountain Shit BABYYYYY
                     break;
 				#endregion
@@ -418,8 +436,13 @@ public class SpellDisplay : MonoBehaviour
                         telekinesisUI.SetActive(false);
                         getTarget();
 <<<<<<< HEAD
+<<<<<<< HEAD
 						//Determines if object is allowed to be targeted
 						if (spellTarget.GetComponent<Rigidbody>() != null && spellTarget != player)
+=======
+                        //Determines if object is allowed to be targeted
+                        if (spellTarget.GetComponent<Rigidbody>() != null && spellTarget != player)
+>>>>>>> parent of 2389469... Mountain Shit BABYYYYY
 =======
                         //Determines if object is allowed to be targeted
                         if (spellTarget.GetComponent<Rigidbody>() != null && spellTarget != player)

@@ -40,3 +40,6 @@ UnityGame/Assets/Scripts/SamBrain.cs
 UnityGame/Assets/Scripts/SpellDisplay.cs
 UnityGame/ProjectSettings/ProBuilderSettings.json
 UnityGame/ProjectSettings/TagManager.asset
+*.unity
+UnityGame/Assets/Scripts/SamBrain.cs
+UnityGame/ProjectSettings/ProBuilderSettings.json
