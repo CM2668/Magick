@@ -32,7 +32,7 @@ public class Grease : MonoBehaviour
 
     private void OnTriggerEnter(Collider obj)
     {
-        Debug.Log(obj.tag);
+        //Debug.Log(obj.tag);
         if (obj.tag == "Player")
         {
             Playercollision = true;
@@ -47,10 +47,10 @@ public class Grease : MonoBehaviour
            
         if (obj.tag == "Player")
 		{
-			Debug.Log("EXIT");
+			//Debug.Log("EXIT");
 			obj.GetComponent<FirstPersonAIO>().walkSpeed = startWalkSpeed;
 			obj.GetComponent<FirstPersonAIO>().sprintSpeed = startSprintSpeed;
-            Debug.Log(startWalkSpeed);
+            //Debug.Log(startWalkSpeed);
 		}
 	}
 
@@ -89,7 +89,7 @@ public class Grease : MonoBehaviour
         int layerMask = 0 << 8;
         layerMask = ~layerMask;
 
-        Debug.DrawRay(ray.origin, ray.direction, Color.red, 30f);
+        //Debug.DrawRay(ray.origin, ray.direction, Color.red, 30f);
 
         if (Physics.Raycast(ray, out hit, 500, layerMask))
         {

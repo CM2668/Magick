@@ -32,16 +32,18 @@ public class Fireball : MonoBehaviour
         {
             Object.Destroy(gameObject);
         }
+        lifeTimer -= Time.deltaTime;
     }
 
 	void OnTriggerEnter()
 	{
         if(lifeTimer <= 9.9)
-            {
+        {
             collide = true;
             GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
-            transform.localScale += new Vector3(1f, 1f, 1f);
-			Destroy(this);
+            transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+            
+			//Destroy(this);
         }
         
 

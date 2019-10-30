@@ -112,6 +112,7 @@ public class UIController : MonoBehaviour
 
         MainMenuGroup.SetActive(false);
         firstPersonGroup.SetActive(true);
+		PersistentManager.instance.SetPlayer(firstPersonGroup);
         HUD.SetActive(true);
     }
 

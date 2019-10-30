@@ -10,8 +10,6 @@ public class PersistentManager : MonoBehaviour
 	public Button resetButton;
 	public GameObject player;
 	public string zone;
-	public GameObject townArea;
-	public GameObject forestArea;
 
 	private void Awake()
 	{
@@ -26,11 +24,18 @@ public class PersistentManager : MonoBehaviour
 		}
 		
 		player = GameObject.FindGameObjectWithTag("Player");
+		zone = "Town";
 	}
 
 	void Update()
 	{
-
+		if (player != null)
+		{
+			if (zone != "Town" && player.transform.position.x <= 10f && player.transform.position.z <= 5f)
+				zone = "Town";
+			else if (zone != "Forest" && player.transform.position.x <= 10f && player.transform.position.z >= 5f)
+				zone = "Forest";
+		}
 	}
 
 	void FixedUpdate()
@@ -48,5 +53,6 @@ public class PersistentManager : MonoBehaviour
 	}
 
 	public void SetZone(string z) {zone = z;}
+	public void SetPlayer(GameObject p) {player = p;}
 	public string GetZone() {return zone;}
 }

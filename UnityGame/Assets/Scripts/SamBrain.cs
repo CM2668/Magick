@@ -24,15 +24,15 @@ public class SamBrain : MonoBehaviour
 
     void Update()
     {
-		//if(enemy != null)
-		//{
-		//	Debug.Log("I SEE YOU");
-		//}
-		//if (moveSam.hasPath)
-		//{
-		//	Debug.Log("MOVING");
-		//}
-    }
+		if (enemy != null)
+		{
+			Debug.Log("I SEE YOU");
+		}
+		if (moveSam.hasPath)
+		{
+			Debug.Log("MOVING");
+		}
+	}
 
 	void FixedUpdate()
 	{
@@ -62,14 +62,14 @@ public class SamBrain : MonoBehaviour
 				enemy = hit.transform.gameObject;
 			}
 		}
-		//Debug.DrawRay(ray.origin, ray.direction, Color.red, 30f);
+		Debug.DrawRay(ray.origin, ray.direction, Color.red, 30f);
 	}
 
 	void MoveToTarget()
 	{
 		transform.LookAt(enemy.transform);
 		moveSam.SetDestination(enemy.transform.position);
-		//Debug.Log(Vector3.Distance(gameObject.transform.position, enemy.transform.position));
+		Debug.Log(Vector3.Distance(gameObject.transform.position, enemy.transform.position));
 		if (Vector3.Distance(gameObject.transform.position, enemy.transform.position) <= 1.5f)
 			Shank();
 	}
@@ -84,8 +84,6 @@ public class SamBrain : MonoBehaviour
 	{
 		if (gameObject.transform.position != home)
 			moveSam.SetDestination(home);
-		else if (gameObject.transform.position == home)
-			transform.LookAt(home + new Vector3(1f, 0f, -1f));
 	}
 
 	void Shank()
