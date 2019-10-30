@@ -7,6 +7,7 @@ public class SamBrain : MonoBehaviour
 {
 	public NavMeshAgent moveSam;
 	GameObject enemy;
+    GameObject tmp = null;
 	RaycastHit hit;
 	Ray ray;
 	int layerMask;
@@ -14,8 +15,7 @@ public class SamBrain : MonoBehaviour
 
 	void Start()
     {
-		ray = new Ray(transform.position, transform.forward);
-		layerMask = 0 << 8;
+        layerMask = 0 << 8;
 		layerMask = ~layerMask;
 		moveSam = gameObject.GetComponent<NavMeshAgent>();
 		home = transform.position;
@@ -48,8 +48,12 @@ public class SamBrain : MonoBehaviour
 	{
 		if(obj.tag == "Player")
 		{
-			if(enemy == null)
-				GetTarget();
+            if (enemy == null)
+            {
+                ray = new Ray(transform.position, transform.forward);
+                Debug.DrawRay(ray.origin, ray.direction, Color.red, 5000f);
+                GetTarget();
+            }
 		}
 	}
 
@@ -62,7 +66,7 @@ public class SamBrain : MonoBehaviour
 				enemy = hit.transform.gameObject;
 			}
 		}
-		Debug.DrawRay(ray.origin, ray.direction, Color.red, 30f);
+		
 	}
 
 	void MoveToTarget()
@@ -76,21 +80,25 @@ public class SamBrain : MonoBehaviour
 
 	void DeAggro()
 	{
-		enemy = null;
+		enemy = tmp;
+        enemy = null;
 		Home();
 	}
 
 	void Home()
 	{
-		if (gameObject.transform.position != home)
-			moveSam.SetDestination(home);
+        if (gameObject.transform.position != home)
+        {
+            moveSam.SetDestination(home);
+        }
+       
 	}
 
 	void Shank()
 	{
 		if(enemy.tag == "Player")
 		{
-			PersistentManager.instance.resetWorld();
+			//PersistentManager.instance.resetWorld();
 		}
 	}
 }
