@@ -84,8 +84,6 @@ public class SamBrain : MonoBehaviour
 	{
 		if (gameObject.transform.position != home)
 			moveSam.SetDestination(home);
-		else if (gameObject.transform.position == home)
-			transform.LookAt(home + new Vector3(1f, 0f, -1f));
 	}
 
 	void Shank()

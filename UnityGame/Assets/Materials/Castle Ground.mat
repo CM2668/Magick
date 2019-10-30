@@ -256,7 +256,7 @@ Material:
     m_Colors:
     - Color_48AECE57: {r: 0, g: 0, b: 0, a: 0}
     - Vector2_2D18AC2D: {r: 6, g: 0, b: 0, a: 0}
-    - Vector2_43EEB593: {r: 55, g: 55, b: 5, a: 5}
+    - Vector2_43EEB593: {r: 30, g: 30, b: 5, a: 5}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
