@@ -35,3 +35,8 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+UnityGame/Assets/MainScene.unity
+UnityGame/Assets/Scripts/SamBrain.cs
+UnityGame/Assets/Scripts/SpellDisplay.cs
+UnityGame/ProjectSettings/ProBuilderSettings.json
+UnityGame/ProjectSettings/TagManager.asset

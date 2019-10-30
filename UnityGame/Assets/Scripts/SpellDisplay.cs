@@ -115,10 +115,17 @@ public class SpellDisplay : MonoBehaviour
                     player.GetComponent<FirstPersonAIO>().sprintSpeed = 7;
                     break;
                 case "TELEKINESIS":
+<<<<<<< HEAD
 					mat.SetColor("_EmissiveColor", new Color(0, 0, 0, 0));
 					mat.DisableKeyword("_UseEmissiveIntensity");
 					spellTarget.GetComponent<Rigidbody>().useGravity = true;
 					//spellTarget.transform.parent = unchild;
+=======
+                    mat.SetColor("_EmissiveColor", new Color(0,0,0,0));
+                    mat.DisableKeyword("_UseEmissiveIntensity");
+                    spellTarget.GetComponent<Rigidbody>().useGravity = true;
+                    //spellTarget.transform.parent = unchild;
+>>>>>>> parent of 2389469... Mountain Shit BABYYYYY
                     break;
                 case "LEVITATION":
                     Destroy(spellTarget.GetComponent<Levitate>());
@@ -162,6 +169,7 @@ public class SpellDisplay : MonoBehaviour
 			{
 				#region TELEKINESIS
 				case "TELEKINESIS":
+<<<<<<< HEAD
 					targetDistance = Vector3.Distance(spellGuide.transform.position, spellTarget.transform.position);
 					ForceMod = 2000;
 					ForceMod = ForceMod * targetDistance;
@@ -178,6 +186,24 @@ public class SpellDisplay : MonoBehaviour
 					{
 						spellTarget.GetComponent<Rigidbody>().velocity += new Vector3(Random.Range(-.05f, .05f), Random.Range(-.05f, .05f), Random.Range(-.05f, .05f));
 					}
+=======
+                    targetDistance = Vector3.Distance(spellGuide.transform.position, spellTarget.transform.position);
+                    ForceMod = 2000;
+                    ForceMod = ForceMod * targetDistance;
+                    if (targetDistance >= .2 && playerTouching == false)
+                    {
+                        spellTarget.GetComponent<Rigidbody>().velocity = spellTarget.GetComponent<Rigidbody>().velocity / 4f;
+                        spellTarget.GetComponent<Rigidbody>().AddForce((spellGuide.transform.position - spellTarget.transform.position).normalized * (ForceMod) * Time.smoothDeltaTime, mode: ForceMode.Impulse);
+                    }
+                    else if (playerTouching == true)
+                    {
+                        spellTarget.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+                    }
+                    else if (targetDistance <= .15 && spellTarget.GetComponent<Rigidbody>().velocity.x <= .2f && spellTarget.GetComponent<Rigidbody>().velocity.y <= .2f && spellTarget.GetComponent<Rigidbody>().velocity.z <= .2f)
+                    {
+                        spellTarget.GetComponent<Rigidbody>().velocity += new Vector3(Random.Range(-.05f, .05f), Random.Range(-.05f, .05f), Random.Range(-.05f, .05f));
+                    }
+>>>>>>> parent of 2389469... Mountain Shit BABYYYYY
                     break;
 				#endregion
 				default:
@@ -201,6 +227,7 @@ public class SpellDisplay : MonoBehaviour
         {
             switch (activeSpell)
             {
+<<<<<<< HEAD
 				#region TELEKINESIS
 				case "TELEKINESIS":
 					if (Vector3.Distance(spellGuide.transform.position, player.transform.position) <= 10 && Vector3.Distance(spellGuide.transform.position, player.transform.position) >= 3)
@@ -224,6 +251,30 @@ public class SpellDisplay : MonoBehaviour
 						move.z = 3.2f;
 						spellGuide.transform.localPosition = move;
 					}
+=======
+                case "TELEKINESIS":
+                    if (Vector3.Distance(spellGuide.transform.position, player.transform.position) <= 10 && Vector3.Distance(spellGuide.transform.position, player.transform.position) >= 3)
+                    {
+                        //Debug.Log((Vector3.Distance(spellGuide.transform.position, player.transform.position)));
+                        move = spellGuide.transform.localPosition;
+                        move.z += Input.mouseScrollDelta.y / 10f;
+                        spellGuide.transform.localPosition = move;
+                    }
+                    else if(Vector3.Distance(spellGuide.transform.position, player.transform.position) > 10 && Input.mouseScrollDelta.y <= 0)
+                    {
+                        //Debug.Log((Vector3.Distance(spellGuide.transform.position, player.transform.position)));
+                        move = spellGuide.transform.localPosition;
+                        move.z = 9.5f;
+                        spellGuide.transform.localPosition = move;
+                    }
+                    else if (Vector3.Distance(spellGuide.transform.position, player.transform.position) < 3 && Input.mouseScrollDelta.y >= 0)
+                    {
+                        //Debug.Log((Vector3.Distance(spellGuide.transform.position, player.transform.position)));
+                        move = spellGuide.transform.localPosition;
+                        move.z = 3.2f;
+                        spellGuide.transform.localPosition = move;
+                    }
+>>>>>>> parent of 2389469... Mountain Shit BABYYYYY
                     break;
 				#endregion
 				default:
@@ -366,8 +417,13 @@ public class SpellDisplay : MonoBehaviour
                         displayText = "";
                         telekinesisUI.SetActive(false);
                         getTarget();
+<<<<<<< HEAD
 						//Determines if object is allowed to be targeted
 						if (spellTarget.GetComponent<Rigidbody>() != null && spellTarget != player)
+=======
+                        //Determines if object is allowed to be targeted
+                        if (spellTarget.GetComponent<Rigidbody>() != null && spellTarget != player)
+>>>>>>> parent of 2389469... Mountain Shit BABYYYYY
 						{
                             //Determines if object has the renderer or if its children do, then lights the renderer up
                             if (spellTarget.GetComponent<Renderer>() != null)
