@@ -16,6 +16,7 @@ public class OnFire : MonoBehaviour
 		if (gameObject.tag == "Enemy")
 		{
 			Debug.Log("Killing: " + gameObject.name);
+			PersistentManager.instance.SetSamMurder(true);
 			Destroy(gameObject);
 		}
     }
