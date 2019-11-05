@@ -35,14 +35,23 @@ public class Fireball : MonoBehaviour
         lifeTimer -= Time.deltaTime;
     }
 
-	void OnTriggerEnter()
+	void OnTriggerEnter(Collider obj)
 	{
+		GameObject temp;
+
         if(lifeTimer <= 9.9)
         {
             collide = true;
             GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
             transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
-            
+
+			if(obj.transform.parent != null)
+			{
+				temp = obj.transform.parent.gameObject;
+				temp.AddComponent<OnFire>();
+				Debug.Log(temp.name);
+			}
+			Debug.Log(obj.name);
 			//Destroy(this);
         }
         
