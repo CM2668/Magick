@@ -57,7 +57,7 @@ public class UIController : MonoBehaviour
     private void Update()
     {
         //open pause menu
-        if (Input.GetKeyDown(KeyCode.C) && InOptionsMenu == false)
+        if (Input.GetKeyDown(KeyCode.Escape) && InOptionsMenu == false)
         {
             InOptionsMenu = true;
             firstPersonGroup.GetComponent<FirstPersonAIO>().playerCanMove = false;
@@ -69,7 +69,7 @@ public class UIController : MonoBehaviour
             spellDisplay.GetComponent<SpellDisplay>().Clear();
         }
         //close pause menu
-        else if (Input.GetKeyDown(KeyCode.C) && InOptionsMenu == true)
+        else if (Input.GetKeyDown(KeyCode.Escape) && InOptionsMenu == true)
         {
             InOptionsMenu = false;
             firstPersonGroup.GetComponent<FirstPersonAIO>().playerCanMove = true;
