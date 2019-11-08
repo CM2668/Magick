@@ -1,11 +1,14 @@
 fileFormatVersion: 2
-guid: cfce20745b7b80c48b639beb79d9d515
+guid: 8d2939f0a210f7d49a7f1134db435775
 ModelImporter:
   serializedVersion: 26
   internalIDToNameTable:
   - first:
-      74: -887982601649841707
-    second: metarig|metarigAction
+      74: 80215134163233535
+    second: Armature|00
+  - first:
+      74: 2400511362114573450
+    second: Armature|Hand_roll_1
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -35,11 +38,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: metarig|metarigAction
-      takeName: metarig|metarigAction
+      name: Armature|00
+      takeName: Armature|00
       internalID: 0
       firstFrame: 0
-      lastFrame: 120
+      lastFrame: 168
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -47,6 +50,35 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|Hand_roll_1
+      takeName: Armature|Hand_roll_1
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 20
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0

@@ -64,6 +64,7 @@ public class SamBrain : MonoBehaviour
 			if (hit.transform.gameObject.tag == "Player")
 			{
 				enemy = hit.transform.gameObject;
+				gameObject.GetComponent<Wander>().enabled = false;
 			}
 		}
 		
@@ -82,10 +83,11 @@ public class SamBrain : MonoBehaviour
 	{
 		enemy = tmp;
         enemy = null;
-		Home();
+		gameObject.GetComponent<Wander>().enabled = true;
+		//Home();
 	}
 
-	void Home()
+	/*void Home()
 	{
         if (gameObject.transform.position != home)
         {
@@ -93,12 +95,12 @@ public class SamBrain : MonoBehaviour
         }
        
 	}
-
+	*/
 	void Shank()
 	{
 		if(enemy.tag == "Player")
 		{
-			//PersistentManager.instance.resetWorld();
+			PersistentManager.instance.resetWorld();
 		}
 	}
 }

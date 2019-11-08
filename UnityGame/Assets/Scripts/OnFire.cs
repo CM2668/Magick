@@ -17,6 +17,7 @@ public class OnFire : MonoBehaviour
 		{
 			Debug.Log("Killing: " + gameObject.name);
 			PersistentManager.instance.SetSamMurder(true);
+			PersistentManager.instance.TaskComplete(true, "Defeated the goblin threat.");
 			Destroy(gameObject);
 		}
     }
