@@ -17,6 +17,10 @@ public class PlayerCollision : MonoBehaviour
             collide = true;
             spellCall.GetComponent<SpellDisplay>().telekinesisCollide(other, collide);
         }
+        else if(other.tag == "KillBox")
+        {
+            spellCall.GetComponent<SpellDisplay>().Clear();
+        }
     }
 
     public void OnTriggerExit(Collider other)
