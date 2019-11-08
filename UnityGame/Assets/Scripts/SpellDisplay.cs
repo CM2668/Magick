@@ -413,7 +413,7 @@ public class SpellDisplay : MonoBehaviour
 
 		if (Physics.Raycast(ray, out hit, 50, layerMask))
 		{
-			if (hit.collider != null && hit.collider.gameObject.tag != "Enemy")
+			if (hit.collider != null && hit.collider.gameObject.tag != "Enemy" && hit.collider.gameObject.layer != 2)
 			{
 				spellTarget = hit.transform.gameObject;
 				unchild = spellTarget.transform.parent;
