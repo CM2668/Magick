@@ -10,9 +10,6 @@ public class PersistentManager : MonoBehaviour
 	public Button resetButton;
 	public GameObject player;
 	public string zone;
-	public GameObject taskComplete;
-	public Text taskDesc;
-	double timer;
 
 	#region Task Flags
 	public bool enteredForest = false;
@@ -56,33 +53,16 @@ public class PersistentManager : MonoBehaviour
 		if (!fullyExplored)
 		{
 			if (!enteredForest && zone == "Forest")
-			{
 				enteredForest = true;
-				TaskComplete(true, "Forest discovered");
-			}
 			else if (!enteredCastle && zone == "Castle")
-			{
-			enteredCastle = true;
-				TaskComplete(true, "Castle discovered");
-			}
+				enteredCastle = true;
 			else if (!enteredCave && zone == "Cave")
-			{
 				enteredCave = true;
-				TaskComplete(true, "Cave discovered");
-			}
 
 			if (enteredForest && enteredCastle && enteredCave)
-			{
 				fullyExplored = true;
-				TaskComplete(true, "All locations discovered");
-			}
 		}
 		#endregion
-
-		if (timer > 0)
-			timer -= Time.deltaTime;
-		else if (timer <= 0)
-			TaskComplete(false, "");
 	}
 
 	void FixedUpdate()
@@ -97,13 +77,6 @@ public class PersistentManager : MonoBehaviour
 
 		if(player == null)
 			player = GameObject.FindGameObjectWithTag("Player");
-	}
-
-	public void TaskComplete(bool active, string desc)
-	{
-		taskComplete.SetActive(active);
-		taskDesc.text = desc;
-		timer = 5;
 	}
 
 	#region set variables
