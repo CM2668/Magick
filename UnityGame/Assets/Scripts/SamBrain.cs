@@ -98,7 +98,7 @@ public class SamBrain : MonoBehaviour
 	{
 		if(enemy.tag == "Player")
 		{
-			//PersistentManager.instance.resetWorld();
+			PersistentManager.instance.resetWorld();
 		}
 	}
 }

@@ -109,7 +109,7 @@ MonoBehaviour:
     showEyeDropper: 1
   density:
     m_OverrideState: 1
-    m_Value: 0.13
+    m_Value: 0.286
     min: 0
     max: 1
   maxFogDistance:
@@ -210,7 +210,7 @@ MonoBehaviour:
     showEyeDropper: 1
   groundColor:
     m_OverrideState: 1
-    m_Value: {r: 0.34901962, g: 0.36862746, b: 0.24705884, a: 1}
+    m_Value: {r: 0.34901962, g: 0.36862746, b: 0.24705884, a: 0}
     hdr: 0
     showAlpha: 1
     showEyeDropper: 1
