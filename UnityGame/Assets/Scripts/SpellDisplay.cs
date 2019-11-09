@@ -399,7 +399,7 @@ public class SpellDisplay : MonoBehaviour
                     displayText = "";
                     break;
             }
-            Clear();
+            //Clear();
         }
 	}
 
@@ -413,7 +413,7 @@ public class SpellDisplay : MonoBehaviour
 
 		if (Physics.Raycast(ray, out hit, 50, layerMask))
 		{
-			if (hit.collider != null && hit.collider.gameObject.tag != "Enemy")
+			if (hit.collider != null && hit.collider.gameObject.tag != "Enemy" && hit.collider.gameObject.layer != 2)
 			{
 				spellTarget = hit.transform.gameObject;
 				unchild = spellTarget.transform.parent;
@@ -466,6 +466,29 @@ public class SpellDisplay : MonoBehaviour
     public void Clear()
     {
 
+        switch (activeSpell)
+        {
+            case "JUMP":
+                player.GetComponent<FirstPersonAIO>().jumpPower = 5;    // HEY LOOKIE HERE: This should probably be changed to be a variable in some way
+                break;
+            case "HASTE":
+                player.GetComponent<FirstPersonAIO>().sprintSpeed = 7;
+                break;
+            case "TELEKINESIS":
+                mat.SetColor("_EmissiveColor", new Color(0, 0, 0, 0));
+                mat.DisableKeyword("_UseEmissiveIntensity");
+                spellTarget.GetComponent<Rigidbody>().useGravity = true;
+                //spellTarget.transform.parent = unchild;
+                break;
+            case "LEVITATION":
+                Destroy(spellTarget.GetComponent<Levitate>());
+                spellTarget.GetComponent<Rigidbody>().useGravity = true;
+                spellTarget.GetComponent<Rigidbody>().freezeRotation = false;
+                break;
+            default:
+                displayText = "";
+                break;
+        }
 
         fireballUI.SetActive(false);
         greaseUI.SetActive(false);
@@ -491,7 +514,8 @@ public class SpellDisplay : MonoBehaviour
         }
 
         displayText = "";
-               
+        spellTarget = null;
+        activeSpell = null;
     }
 }
 
