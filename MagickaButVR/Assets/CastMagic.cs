@@ -5,50 +5,108 @@ using UnityEngine;
 public class CastMagic : MonoBehaviour
 {
     public DisplayMagicUI DisplayMagicUI;
-    GameObject Spell;
-    Transform unchild;
+    public OVRPlayerController pc;
+    private Transform unchild;
+    private Material mat = null;
+    private RaycastHit hit;
 
+    private Vector3 move; 
+
+    private GameObject Spell;
     public GameObject FireballGameObject;
     public GameObject Righthand;
     public GameObject spellTarget;
     public GameObject player;
     public GameObject spellGuide;
-    Material mat = null;
+    
+    public float spellTimer;
+    private float targetDistance;
 
-    bool CastingFireball = false;
-    bool CastingTelekinesis = false;
-    RaycastHit hit;
-    bool OngoingTelekinesis = false;
-
-    float targetDistance; //Distance between target and object (Telekinesis)
-    bool playerTouching; //Determines if player is touching object that is being targeted
+    private bool playerTouching;
+    private bool CastingFireball = false;
+    private bool CastingTelekinesis = false;
+    private bool OngoingTelekinesis = false;
+    private bool CastingJump = false;
+    private bool OngoingJump = false;
+    private bool CastingHaste = false;
+    private bool OngoingHaste = false;
+    
 
     // Update is called once per frame
     void Update()
     {
-
+        
         if (Input.GetButtonDown("Fire2"))
         {
+
             if (CastingFireball == true)
             {
                 Fireball();
                 DisplayMagicUI.Channeling = false;
-            }
+            }//Throws Fireball
             else if (OngoingTelekinesis == true)
             {
                 spellTarget.GetComponent<Rigidbody>().useGravity = true;
-                DisplayMagicUI.Channeling = false;
                 CastingTelekinesis = false;
                 OngoingTelekinesis = false;
                 spellTarget = null;
-            }
+                DisplayMagicUI.Channeling = false;
+            }//Stops Telekinesis
             else if (CastingTelekinesis == true)
             {
                 Telekinesis();
                 OngoingTelekinesis = true;
-            }
-            
+                
+            }//Starts Telekinesis
+            else if (CastingJump == true)
+            {       
+                spellTimer = 30;
+                OngoingJump = true;
+                CastingJump = false;
+            }//Starts Jump
+            else if (spellTimer > 0 && OngoingJump == true)
+            {
+                OngoingJump = false;
+                DisplayMagicUI.Channeling = false;
+            }//Stops Jump
+            else if (CastingHaste == true)
+            {
+                spellTimer = 30;
+                OngoingHaste = true;
+                CastingHaste = false;
+            }//Starts Haste
+            else if (spellTimer > 0 && OngoingHaste == true)
+            {
+                OngoingHaste = false;
+                DisplayMagicUI.Channeling = false;
+                pc.Acceleration = .08f;
+            }//Stops Haste
+
+
+
+        }//Activates & Deactivates Timed Spells      
+        #region JumpTimer
+        if (spellTimer > 0 && OngoingJump == true) //starts jump while timer is going and player hasnt canceled it
+            pc.JumpForce = .6f;
+        else if(spellTimer < 0 && OngoingJump == true)
+        {
+            pc.JumpForce = .3f;
+            DisplayMagicUI.Channeling = false;
+            OngoingJump = false;
         }
+        #endregion
+        #region HasteTimer
+        if (spellTimer > 0 && OngoingHaste == true) //starts jump while timer is going and player hasnt cancelled it
+            pc.Acceleration = .3f;
+        else if (spellTimer < 0 && OngoingHaste == true)
+        {
+            pc.Acceleration = .08f;
+            DisplayMagicUI.Channeling = false;
+            OngoingHaste = false;
+        }
+        #endregion
+
+        spellTimer -= Time.deltaTime;
 
         if (OngoingTelekinesis == true)
         {
@@ -80,11 +138,13 @@ public class CastMagic : MonoBehaviour
                 }
             }
         }
+        
     }
+    
 
-    public void Cast(string[] Combination)
+    public void Cast(string[] Combination)//Determines What spell to use
     {
-
+        
         if (Combination[0] == "Evocation" && Combination[1] == "Stranger" && Combination[2] == "Primal")
         {
             if (DisplayMagicUI.RightHand.transform.childCount == 1)
@@ -95,14 +155,28 @@ public class CastMagic : MonoBehaviour
                 Debug.LogWarning("Cast Fireball");
             }
             
-        }
+        }//Fireball
 
         if (Combination[0] == "Transmutation" && Combination[1] == "Stranger" && Combination[2] == "Gravitation")
         {
             DisplayMagicUI.Channeling = true;
             CastingTelekinesis = true;
             Debug.LogWarning("Cast Telekinesis");
-        }
+        }//Telekinesis
+
+        if (Combination[0] == "Enchantment" && Combination[1] == "Self" && Combination[2] == "Gravitation")
+        {
+            DisplayMagicUI.Channeling = true;
+            CastingJump = true;
+            Debug.LogWarning("Cast Jump");
+        }//Jump
+
+        if (Combination[0] == "Enchantment" && Combination[1] == "Self" && Combination[2] == "Ascendant")
+        {
+            DisplayMagicUI.Channeling = true;
+            CastingHaste = true;
+            Debug.LogWarning("Cast Haste");
+        }//Haste
 
     }
 
@@ -112,20 +186,29 @@ public class CastMagic : MonoBehaviour
         Spell.GetComponent<Rigidbody>().useGravity = true;
         Spell.GetComponent<Rigidbody>().AddForce(transform.forward * 1000);
         CastingFireball = false;
-    }
+    }//Code for launching Fireball
 
     public void Telekinesis()
     {
 
         GetTarget();
         //Determines if object is allowed to be targeted
-        if (spellTarget.GetComponent<Rigidbody>() != null && spellTarget != player)
+        if (spellTarget != null)
         {
-            //activates effects of telekinesis
-            spellTarget.GetComponent<Rigidbody>().useGravity = false;
+            if (spellTarget.GetComponent<Rigidbody>() != null && spellTarget != player)
+            {
+                //activates effects of telekinesis
+                spellTarget.GetComponent<Rigidbody>().useGravity = false;
 
+            }
         }
-    }
+        else
+        {
+            OngoingTelekinesis = false;
+            CastingTelekinesis = false;
+            DisplayMagicUI.Channeling = false;
+        }
+    } //Code for Activating Telekinesis
 
     public void GetTarget()
     {
@@ -141,7 +224,7 @@ public class CastMagic : MonoBehaviour
             }
         }
         else
-            Debug.LogWarning("Already have a target");
+            Debug.LogWarning("No Target Hit");
         /*
         if (spellTarget != null && spellTarget.GetComponent<Rigidbody>() != null)
             Debug.LogWarning("Target: " + spellTarget.name);
@@ -150,5 +233,5 @@ public class CastMagic : MonoBehaviour
         else
             Debug.LogWarning("No Target | " + ray.GetPoint(10f) + " | " + Righthand.transform.position);
             */
-    }
+    }//Code for Raycasting to Target
 }

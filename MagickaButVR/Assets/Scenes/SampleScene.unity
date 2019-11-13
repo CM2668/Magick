@@ -312,12 +312,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DisplayMagicUI: {fileID: 1023229598}
+  pc: {fileID: 1023229601}
   FireballGameObject: {fileID: 6960839888303551678, guid: 63bf154e57173f54da3a476eb3848e9f,
     type: 3}
   Righthand: {fileID: 113926270}
   spellTarget: {fileID: 0}
   player: {fileID: 1023229597}
   spellGuide: {fileID: 43334939}
+  spellTimer: 0
 --- !u!1 &169741887
 GameObject:
   m_ObjectHideFlags: 0
@@ -1754,7 +1756,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11400010, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
       propertyPath: GravityModifier
-      value: 0.5
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 11400010, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
       propertyPath: Damping
@@ -1763,6 +1765,10 @@ PrefabInstance:
     - target: {fileID: 11400010, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
       propertyPath: SnapRotation
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400010, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
+      propertyPath: Acceleration
+      value: 0.08
       objectReference: {fileID: 0}
     - target: {fileID: 100006, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
       propertyPath: m_TagString
@@ -1797,6 +1803,18 @@ MonoBehaviour:
   ForceUIOpen: 0
   Channeling: 0
   ElementSelect: {fileID: 0}
+--- !u!114 &1023229601 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 11400010, guid: ce816f2e6abb0504092c23ed9b970dfd,
+    type: 3}
+  m_PrefabInstance: {fileID: 950268473}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1023229597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0950df82e7936c84983497630bde5b54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1023229603
 MonoBehaviour:
   m_ObjectHideFlags: 0
