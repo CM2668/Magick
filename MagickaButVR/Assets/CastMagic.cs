@@ -32,6 +32,7 @@ public class CastMagic : MonoBehaviour
             if (CastingFireball == true)
             {
                 Fireball();
+                DisplayMagicUI.Channeling = false;
             }
             else if (OngoingTelekinesis == true)
             {
@@ -86,7 +87,7 @@ public class CastMagic : MonoBehaviour
 
         if (Combination[0] == "Evocation" && Combination[1] == "Stranger" && Combination[2] == "Primal")
         {
-            if (DisplayMagicUI.RightHand.transform.childCount == 0)
+            if (DisplayMagicUI.RightHand.transform.childCount == 1)
             {
                 DisplayMagicUI.Channeling = true;
                 Spell = Instantiate(FireballGameObject, DisplayMagicUI.RightHand.transform);
