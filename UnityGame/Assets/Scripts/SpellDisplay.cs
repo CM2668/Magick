@@ -399,7 +399,7 @@ public class SpellDisplay : MonoBehaviour
                     displayText = "";
                     break;
             }
-			RemoveRunes();
+            //Clear();
         }
 	}
 
@@ -497,30 +497,25 @@ public class SpellDisplay : MonoBehaviour
         hasteUI.SetActive(false);
         telekinesisUI.SetActive(false);
 
-		RemoveRunes();
+        if (newRune1 != null)
+        {
+            GameObject.Destroy(newRune1);
+            newRune1 = null;
+        }
+        if (newRune2 != null)
+        {
+            GameObject.Destroy(newRune2);
+            newRune2 = null;
+        }
+        if (newRune3 != null)
+        {
+            GameObject.Destroy(newRune3);
+            newRune3 = null;
+        }
 
         displayText = "";
         spellTarget = null;
         activeSpell = null;
     }
-
-	public void RemoveRunes()
-	{
-		if (newRune1 != null)
-		{
-			GameObject.Destroy(newRune1);
-			newRune1 = null;
-		}
-		if (newRune2 != null)
-		{
-			GameObject.Destroy(newRune2);
-			newRune2 = null;
-		}
-		if (newRune3 != null)
-		{
-			GameObject.Destroy(newRune3);
-			newRune3 = null;
-		}
-	}
 }
 
