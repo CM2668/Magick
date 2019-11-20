@@ -152,6 +152,7 @@ public class UIController : MonoBehaviour
     void PauseToMain()
     {
         PauseMenu.SetActive(false);
+		PersistentManager.instance.ResetTasks();
         SceneManager.LoadScene("MainScene");
     }
 

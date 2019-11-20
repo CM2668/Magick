@@ -40,18 +40,6 @@ public class PersistentManager : MonoBehaviour
 
 	void Update()
 	{
-		if (player != null)
-		{
-			if (zone != "Town" && player.transform.position.x <= 10f && player.transform.position.z <= 5f)
-				zone = "Town";
-			else if (zone != "Forest" && player.transform.position.x <= 10f && player.transform.position.z > 5f)
-				zone = "Forest";
-			else if (zone != "Castle" && player.transform.position.x > 10f && player.transform.position.z >= -5f)
-				zone = "Castle";
-			else if (zone != "Cave" && player.transform.position.x > 10f && player.transform.position.z < -5f)
-				zone = "Cave";
-		}
-
 		#region Task System
 		if (!fullyExplored)
 		{
@@ -104,6 +92,15 @@ public class PersistentManager : MonoBehaviour
 		taskComplete.SetActive(active);
 		taskDesc.text = desc;
 		timer = 5;
+	}
+
+	public void ResetTasks()
+	{
+		enteredForest = false;
+		enteredCave = false;
+		enteredCastle = false;
+		fullyExplored = false;
+		SamMurdered = false;
 	}
 
 	#region set variables

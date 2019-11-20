@@ -578,7 +578,7 @@ public class BETA_SETTINGS{
                     {
                         if(!previousGrounded)
                         {
-                            if(_useFootStepSounds) { audioSource.PlayOneShot(dynamicFootstep.qikAC[Random.Range(0, dynamicFootstep.qikAC.Length)],Volume/10); }
+                            //if(_useFootStepSounds) { audioSource.PlayOneShot(dynamicFootstep.qikAC[Random.Range(0, dynamicFootstep.qikAC.Length)],Volume/10); }
                             nextStepTime = headbobCycle + 0.5f;
                         } else
                         {
