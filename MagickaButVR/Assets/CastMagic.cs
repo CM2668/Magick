@@ -14,7 +14,6 @@ public class CastMagic : MonoBehaviour
 
     private GameObject Spell;
     public GameObject FireballGameObject;
-    public GameObject GreasePoolGameObject;
     public GameObject Righthand;
     public GameObject spellTarget;
     public GameObject player;
@@ -31,7 +30,6 @@ public class CastMagic : MonoBehaviour
     private bool OngoingJump = false;
     private bool CastingHaste = false;
     private bool OngoingHaste = false;
-    private bool CastingGreasePool = false;
     
 
     // Update is called once per frame
@@ -40,17 +38,12 @@ public class CastMagic : MonoBehaviour
         
         if (Input.GetButtonDown("Fire2"))
         {
-            //Activates Spells
+
             if (CastingFireball == true)
             {
                 Fireball();
                 DisplayMagicUI.Channeling = false;
             }//Throws Fireball
-            if(CastingGreasePool == true)
-            {
-                GreasePool();
-                DisplayMagicUI.Channeling = false;
-            }//Throws Grease Pool
             else if (OngoingTelekinesis == true)
             {
                 spellTarget.GetComponent<Rigidbody>().useGravity = true;
@@ -164,19 +157,6 @@ public class CastMagic : MonoBehaviour
             
         }//Fireball
 
-        if (Combination[0] == "Evocation" && Combination[1] == "Area" && Combination[2] == "Primal")
-        {
-            if (DisplayMagicUI.RightHand.transform.childCount == 1)
-            {
-                DisplayMagicUI.Channeling = true;
-                Spell = Instantiate(GreasePoolGameObject, DisplayMagicUI.RightHand.transform);
-                DisplayMagicUI.RightHand.transform.GetChild(1).GetComponent<SphereCollider>().isTrigger = false;
-                CastingGreasePool = true;
-                Debug.LogWarning("Cast Grease Pool");
-            }
-
-        }//Grease Pool
-
         if (Combination[0] == "Transmutation" && Combination[1] == "Stranger" && Combination[2] == "Gravitation")
         {
             DisplayMagicUI.Channeling = true;
@@ -198,8 +178,6 @@ public class CastMagic : MonoBehaviour
             Debug.LogWarning("Cast Haste");
         }//Haste
 
-        
-
     }
 
     public void Fireball()
@@ -209,15 +187,6 @@ public class CastMagic : MonoBehaviour
         Spell.GetComponent<Rigidbody>().AddForce(transform.forward * 1000);
         CastingFireball = false;
     }//Code for launching Fireball
-
-    public void GreasePool()
-    {
-        DisplayMagicUI.RightHand.transform.GetChild(1).GetComponent<SphereCollider>().isTrigger = true;
-        Spell.transform.parent = null;
-        Spell.GetComponent<Rigidbody>().useGravity = true;
-        Spell.GetComponent<Rigidbody>().AddForce(transform.forward * 1000);       
-        CastingGreasePool = false;
-    }
 
     public void Telekinesis()
     {
