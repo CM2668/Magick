@@ -20,6 +20,13 @@ public class PersistentManager : MonoBehaviour
 	public bool enteredCastle = false;
 	public bool fullyExplored = false;
 	public bool SamMurdered = false;
+	public bool killedAllGoblins = false;
+	public int totalGoblins;
+	public int killedGoblins = 0;
+	public bool gateOpened = false;
+	public bool forestEscaped = false;
+	public bool overgrownPathNavigated = false;
+	public bool survivedAmbush = false;
 	#endregion
 
 	private void Awake()
@@ -101,12 +108,32 @@ public class PersistentManager : MonoBehaviour
 		enteredCastle = false;
 		fullyExplored = false;
 		SamMurdered = false;
+		killedAllGoblins = false;
+		killedGoblins = 0;
+		gateOpened = false;
+		forestEscaped = false;
+		overgrownPathNavigated = false;
+		survivedAmbush = false;
+	}
+
+	public void GoblinKilled(bool b)
+	{
+		killedGoblins++;
+		if (!SamMurdered)
+		{
+			SamMurdered = true;
+			TaskComplete(runInEditMode, "Murdered the lonely goblin that only wanted a friend.");
+		}
+		if (killedGoblins == totalGoblins)
+		{
+			killedAllGoblins = true;
+			TaskComplete(true, "Defeated the goblin threat.");
+		}
 	}
 
 	#region set variables
 	public void SetZone(string z) { zone = z; }
 	public void SetPlayer(GameObject p) { player = p; }
-	public void SetSamMurder(bool b) { SamMurdered = b; }
 	#endregion
 	#region get variables
 	public string GetZone() { return zone; }

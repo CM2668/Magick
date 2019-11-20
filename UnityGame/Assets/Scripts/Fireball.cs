@@ -39,7 +39,7 @@ public class Fireball : MonoBehaviour
 	{
 		GameObject temp;
 
-        if(lifeTimer <= 9.9 && obj.tag != "Ground")
+        if(lifeTimer <= 9.9 && obj.tag != "Task")
         {
             collide = true;
             GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
