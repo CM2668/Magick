@@ -153,13 +153,13 @@ public class UIController : MonoBehaviour
     {
         PauseMenu.SetActive(false);
 		PersistentManager.instance.ResetTasks();
-        SceneManager.LoadScene("MainScene");
+        SceneManager.LoadScene("New Scene");
     }
 
     void ToDesktop()
     {
         Application.Quit();
-        Debug.Log("Close Game");
+        //Debug.Log("Close Game");
     }
 
     public void AddToSpellbook(string spellname)
