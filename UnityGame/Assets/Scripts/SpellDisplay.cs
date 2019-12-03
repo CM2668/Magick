@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class SpellDisplay : MonoBehaviour
 {
     public GameObject fireball;
+    public GameObject light;
 	public GameObject grease;
     public GameObject player;
     public GameObject playerCamera;
@@ -23,6 +24,7 @@ public class SpellDisplay : MonoBehaviour
     public GameObject levitationUI;
     public GameObject hasteUI;
     public GameObject telekinesisUI;
+    public GameObject lightUI;
 
     #endregion
 
@@ -107,30 +109,6 @@ public class SpellDisplay : MonoBehaviour
         //Detects if spell timer is up or the user is ending a spell
         if ((spellEffectsTimer <= 0 || Input.GetMouseButtonDown(1)) && activeSpell != null)
         {
-            switch (activeSpell)
-            {
-                case "JUMP":
-                    player.GetComponent<FirstPersonAIO>().jumpPower = 5;    // HEY LOOKIE HERE: This should probably be changed to be a variable in some way
-                    break;
-                case "HASTE":
-                    player.GetComponent<FirstPersonAIO>().sprintSpeed = 7;
-                    break;
-                case "TELEKINESIS":
-					mat.SetColor("_EmissiveColor", new Color(0, 0, 0, 0));
-					mat.DisableKeyword("_UseEmissiveIntensity");
-					spellTarget.GetComponent<Rigidbody>().useGravity = true;
-					//spellTarget.transform.parent = unchild;
-                    break;
-                case "LEVITATION":
-                    Destroy(spellTarget.GetComponent<Levitate>());
-                    spellTarget.GetComponent<Rigidbody>().useGravity = true;
-                    spellTarget.GetComponent<Rigidbody>().freezeRotation = false;
-                    break;
-                default:
-                    displayText = "";
-                    break;
-            }
-
             Clear();
             activeSpell = null;
             spellEffectsTimer = 0;
@@ -139,8 +117,6 @@ public class SpellDisplay : MonoBehaviour
         //Detects if user is clearing their spell
         else if (Input.GetMouseButtonDown(1))
         {
-            displayText = "";
-
             Clear();
         }
 
@@ -285,6 +261,15 @@ public class SpellDisplay : MonoBehaviour
                     }
                     break;
                 #endregion
+                #region Light
+                case "frf":
+                    UI.GetComponent<UIController>().AddToSpellbook(displayText);
+                    if (activeSpell == null)
+                    {
+                        lightUI.SetActive(true);
+                    }
+                    break;
+                #endregion
                 default:
                     break;
             }
@@ -395,7 +380,21 @@ public class SpellDisplay : MonoBehaviour
 					}
 				break;
                 #endregion
-
+                #region Light
+                case "frf":
+                    if (activeSpell == null)
+                    {
+                        int layerMask = 0 << 8;
+                        layerMask = ~layerMask;
+                        RaycastHit hit;
+                        if(Physics.Raycast(new Ray(playerCamera.transform.position, playerCamera.transform.forward),out hit,9.9f,layerMask))
+                            Instantiate(light, hit.point, transform.rotation);
+                        else
+                            Instantiate(light, spellGuide.transform.position, transform.rotation);
+                        Clear();
+                    }
+                    break;
+                #endregion
                 default:
                     displayText = "";
                     break;
@@ -497,6 +496,7 @@ public class SpellDisplay : MonoBehaviour
         levitationUI.SetActive(false);
         hasteUI.SetActive(false);
         telekinesisUI.SetActive(false);
+        lightUI.SetActive(false);
 
         if (newRune1 != null)
         {
